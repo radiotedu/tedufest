@@ -3,7 +3,7 @@
 TED Üniversitesi festival ve sponsorluk sitesi.
 
 - Site: https://radiotedu.github.io/tedufest/
-- Düz HTML, CSS, JavaScript ve etkileşimli SVG. Derleme gerektirmez.
+- Düz HTML, CSS, JavaScript, etkileşimli SVG ve Three.js. Derleme gerektirmez.
 - GitHub Pages, `main` dalının kök dizininden yayınlanır.
 - Yerel önizleme: bu dizinde `python -m http.server 4173`.
 - Sponsorluk bağlantıları `mailto:sca@tedu.edu.tr` adresini açar; e-posta otomatik gönderilmez.
@@ -31,6 +31,14 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 - `stage2d.js` / `stage2d.css`: erişilebilir, klavye ile de seçilebilir sahne sponsorluk alanları.
 - `festival.js` / `festival.css`: video açılışı, afiş arşivi, büyütülebilen görseller ve kampüs krokisi.
 - `assets/archive`: yerel arşiv görselleri ve video; Instagram CDN bağlantılarına çalışma zamanı bağımlılığı yoktur.
+
+## Kampüs ve TEDÜ renkleri
+
+- `campus3d.js`, `campus3d-ui.js`, `campus3d.css`: döndürülebilen kampüs modeli; A–B–K çim alanı, Ziya Gökalp Caddesi ve karşıdaki Aksu blokları. Yeme içme stantları sahnenin iki yanına değil, çim alanın uzun kenarındaki duvar boyunca yerleştirilmiştir. Alan seçimi, yakınlaştırma, dört kamera açısı, hareketi duraklatma ve WebGL bulunmadığında görsel yedek desteklenir.
+- `vendor/`: yerel Three.js modülleri ve MIT lisansı.
+- `assets/campus-festival.png`: resmî kroki referans alınarak built-in Imagegen ile üretilen festival illüstrasyonu. Web sürümü `assets/campus-festival.webp`; kaynak çözünürlüğü korunarak sıkıştırılmıştır. Görsel teknik bir yer-yön planı değildir; sitede resmî krokiye ayrı bağlantı vardır.
+- Üretim istemleri: `assets/campus-illustration-prompt.txt` ve `assets/campus-illustration-correction.txt`.
+- `tedu-theme.css`: [TEDÜ Kurumsal Kimlik Kılavuzu](https://www.tedu.edu.tr/sites/default/files/docs/teduniversitekurumsali.pdf), bölüm 2.1–2.2, PDF sayfaları 16–17. Dijital RGB değerleri: lacivert `0,35,126` / `#00237E`, sarı `247,212,23` / `#F7D417`, kırmızı `212,46,18` / `#D42E12`; yardımcı turkuaz `0,164,156` / `#00A49C`. Kurumsal amblem değiştirilmemiştir; renkler site arayüzünde ve festival illüstrasyonunda kullanılır.
 
 ## Kontrol
 
