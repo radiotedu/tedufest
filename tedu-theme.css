@@ -21,7 +21,7 @@
 .festival-map-art img{width:100%;height:auto;display:block}
 .festival-map-pin{position:absolute;display:flex;align-items:center;gap:8px;transform:translate(-50%,-100%);background:var(--tedu-blue);color:white;padding:6px 12px 6px 6px;border:3px solid white;border-radius:30px;font-size:12px;font-weight:800;box-shadow:0 5px 15px #00237e25;white-space:nowrap}
 .festival-map-pin b{display:grid;place-items:center;background:var(--tedu-yellow);color:var(--tedu-blue);width:27px;height:27px;border-radius:50%;font-size:15px}
-.festival-map-pin.stage-map-pin{left:79%;top:34%}
+.festival-map-pin.stage-map-pin{left:79%;top:28%}
 .festival-map-pin.societies-map-pin{left:37%;top:71%;background:var(--tedu-red)}
 .festival-map-pin:hover{box-shadow:0 7px 22px #00237e55}
 .map-bottomline{padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:18px;background:white;border-top:1px solid #dbe5f0;font-size:11px;color:#52647d}
