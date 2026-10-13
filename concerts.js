@@ -2,8 +2,8 @@
 window.TEDUFEST_CONCERTS = [
   {date:'2026-05-21', name:'Selin Geçit', event:'Springfest 2026', image:'selin-2026.webp', source:'https://ds.tedu.edu.tr/gundemde-neler-var/tedu-springfast-2026'},
   {date:'2026-05-21', name:'Motive', event:'Springfest 2026', image:'motive-2026.webp', source:'https://ds.tedu.edu.tr/gundemde-neler-var/tedu-springfast-2026'},
-  {date:'2026-05-20', name:'TEDU Voice All Star', event:'Bahar Şenliği', time:'18:00', source:'https://ds.tedu.edu.tr/gundemde-neler-var/tedu-voice-all-star'},
-  {date:'2025-10-05', name:'Emre Fel & Apartman Diskosu', event:'Kolej Kampüsü · IF Ankara', source:'https://biletino.com/tr/e-15io/emre-fel-apartman-diskosu/'},
+  {date:'2026-05-20', name:'TEDU Voice All Star', kind:'event', event:'Bahar Şenliği etkinliği', time:'18:00', source:'https://ds.tedu.edu.tr/gundemde-neler-var/tedu-voice-all-star'},
+  {date:'2025-10-05', name:'Emre Fel & Apartman Diskosu', event:'Kolej Kampüsü · IF Ankara', image:'emre-fel-2025.jpg', mediaType:'photo', photoLabel:'Konser duyurusundan', imageCaption:'Emre Fel · Etkinliğin tanıtım görseli', source:'https://biletino.com/tr/e-15io/emre-fel-apartman-diskosu/'},
   {date:'2025-05-22', name:'Arem & Arman', event:'Bahar Şenliği', time:'21:00', image:'dktt-poster.jpeg', source:'https://www.tedu.edu.tr/gundemde-neler-var/bahar-senligi-konser-duyurusu'},
   {date:'2025-05-22', name:'Dolu Kadehi Ters Tut', event:'Bahar Şenliği', time:'19:00', image:'dktt-2025.jpeg', source:'https://www.tedu.edu.tr/gundemde-neler-var/bahar-senligi-konser-duyurusu'},
   {date:'2024-12-26', name:'Vaveyla', event:'TEDÜ Rock Yılbaşı Konseri', source:'https://ds.tedu.edu.tr/gundemde-neler-var/tedu-rock-yilbasi-konseri'},
@@ -18,12 +18,12 @@ window.TEDUFEST_CONCERTS = [
   {date:'2018-09-26', name:'Grup Roka', event:'TED Üniversitesi Açılış Konseri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2018_v10.pdf#page=89'},
   {date:'2018-09-14', name:'Grup Roka', event:'Uyum Programı kapanış konseri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2018_v10.pdf#page=89'},
   {date:'2017-09-15', name:'Cem Gökalp & Hey! Douglas', event:'Uyum Programı konserleri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=30'},
-  {date:'2017-09-13', name:'Kozmonot Osman & Yüzyüzeyken Konuşuruz', event:'Uyum Programı konserleri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=30'},
+  {date:'2017-09-13', name:'Yüzyüzeyken Konuşuruz', event:'Uyum Programı · Kozmonot Osman ile aynı gece', image:'yyk-live-2018.jpg', mediaType:'photo', featuredOrder:3, photoLabel:'Sahne fotoğrafı', imageCaption:'Yüzyüzeyken Konuşuruz · Olimpos, 17 Temmuz 2018 · Fotoğraf: Onur, CC BY-SA 4.0', photoCredit:'Fotoğraf: Olimpos 2018 · Onur', photoSource:'https://commons.wikimedia.org/wiki/File:Y%C3%BCzy%C3%BCzeyken_Konu%C5%9Furuz_-_17.7.18.jpg', license:'https://creativecommons.org/licenses/by-sa/4.0/', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=30'},
   {date:'2017-09-12', name:'Kerkayas', event:'Uyum Programı konserleri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=30'},
   {date:'2017-09-11', name:'DJ Efe Köprü', event:'Uyum Programı konserleri', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=30'},
   {date:'2017-06-04', name:'B8, Mezunlar Korosu & Grup Fadiyez', event:'Kuru Fasulye Günü · TED Üniversitesi', source:'https://www.kolej.org/wp-content/uploads/129.say%C4%B1.pdf'},
-  {date:'2017-05-27', name:'Pamela', event:'Bahar Şenliği · Çim Amfi', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=66'},
+  {date:'2017-05-27', name:'Pamela', event:'Bahar Şenliği · Çim Amfi', image:'pamela-2017.jpg', mediaType:'photo', featuredOrder:2, photoLabel:'Festival hatırası', imageCaption:'Pamela · TEDÜ Bahar Şenliği 2017 · Kolejliler dergisi arşivi', photoCredit:'TEDÜ Bahar Şenliği 2017', photoSource:'https://www.kolej.org/wp-content/uploads/129.say%C4%B1.pdf#page=68', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=66'},
   {date:'2017-05-09', name:'The Bluestone Band', event:'Avrupa Günü', source:'https://www.tedu.edu.tr/sites/default/files/docs/tedu_ygr_2017_v2.pdf#page=66'},
   {date:'2016-10-24', name:'Tango Nuevo', event:'Çim Amfi konseri', source:'https://www.tedu.edu.tr/sites/default/files/content_files/tedu_yillik_gostergeler2016.pdf#page=24'},
-  {date:'2013-10-05', name:'Yalın', event:'TEDÜFest · Eski Ortaokula Veda', source:'https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf#page=18'}
+  {date:'2013-10-05', name:'Yalın', event:'TEDÜFest · Eski Ortaokula Veda', image:'yalin-2013.jpg', mediaType:'photo', featuredOrder:1, photoLabel:'Sahneden', imageCaption:'Yalın · TEDÜFest, 5 Ekim 2013 · Kolejliler dergisi arşivi', photoCredit:'TEDÜFest 2013 sahnesinden', photoSource:'https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf#page=18', source:'https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf#page=18'}
 ];

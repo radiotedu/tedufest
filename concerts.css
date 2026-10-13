@@ -12,6 +12,41 @@
 .archive .poster-meta time{font-size:11px;font-weight:700;letter-spacing:.4px;color:#00237e}
 .archive .poster-meta h3{font-size:clamp(25px,2.7vw,36px);line-height:1.08;margin:9px 0 10px}
 .archive .poster-meta p{color:#525a6c}
+.archive-photo{position:relative;display:flex;flex-direction:column;justify-content:space-between;width:100%;aspect-ratio:3/4;padding:0;border:0;background:#00237e;color:#fff;text-align:left;cursor:zoom-in;overflow:hidden}
+.photo-card:nth-child(2) .archive-photo{background:#d42e12}
+.photo-card:nth-child(3) .archive-photo{background:#007a75}
+.photo-card-top{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;gap:12px}
+.photo-card-top b{font:800 46px var(--display);letter-spacing:-1px;color:#f7d417}
+.photo-card-top>span{font-size:10px;font-weight:700}
+.archive-photo img{width:100%;height:auto;max-height:53%;object-fit:contain;display:block}
+.archive-photo>strong{font:800 clamp(32px,3.1vw,45px)/1 var(--display);padding:22px 50px 24px 22px;display:block}
+.archive-photo .media-expand{position:absolute;right:15px;bottom:20px;color:#00237e;background:white;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-size:21px}
+.archive .poster-meta .photo-credit{font-size:10px;line-height:1.6;margin-top:9px}
+.photo-credit a{text-decoration:underline;text-underline-offset:3px}
+.performance-strip{margin:40px 0 0;border-top:2px solid #00237e;border-bottom:1px solid #00237e35;padding:22px 0 25px}
+.strip-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}
+.strip-heading h3{font:700 27px var(--display);margin:0;color:#00237e}
+.strip-toggle{border:1px solid #00237e30;color:#00237e;background:transparent;font:700 11px Manrope,sans-serif;padding:10px 13px;cursor:pointer;min-height:40px}
+.strip-window{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
+.strip-track{display:flex;width:max-content;animation:concert-scroll 100s linear infinite;will-change:transform}
+.strip-copy{display:flex;align-items:center;flex-shrink:0}
+.performance-name{display:grid;grid-template-columns:auto 45px;gap:4px 22px;padding-right:28px;color:#00237e;white-space:nowrap}
+.performance-name b{font:700 28px var(--display)}
+.performance-name>span{font-size:10px;grid-column:1;color:#525a6c}
+.performance-name i{grid-column:2;grid-row:1/3;align-self:center;font-size:30px;color:#d42e12;font-style:normal}
+.performance-strip.is-paused .strip-track,.performance-strip:hover .strip-track,.performance-strip:focus-within .strip-track{animation-play-state:paused}
+.campus-event-note{display:flex;align-items:center;gap:25px;padding:22px 0;border-bottom:1px solid #00237e25;flex-wrap:wrap}
+.campus-event-note>span{font-size:11px;color:#525a6c;font-weight:700}
+.campus-event-note a{display:flex;align-items:center;gap:18px;color:#00237e;font-size:13px}
+.campus-event-note time{font-size:11px}
+.complete-archive{margin-top:32px;border:1px solid #00237e30;padding:0 24px}
+.complete-archive>summary{padding:23px 0;cursor:pointer;color:#00237e;display:list-item;font:700 25px var(--display)}
+.complete-archive>summary small{float:right;font:500 11px Manrope,sans-serif;padding-top:8px}
+.complete-archive .concert-history{margin:0;border-top:1px solid #00237e30;padding:0}
+.complete-archive .concert-year:first-child{border-top:0}
+@keyframes concert-scroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.strip-track{animation:none}.strip-window{overflow-x:auto}.strip-copy[aria-hidden=true]{display:none}}
+@media(max-width:520px){.photo-card-top{padding:18px}.archive-photo>strong{font-size:39px;padding-left:18px}.complete-archive{padding:0 17px}.complete-archive>summary small{float:none;display:block;padding-left:0;line-height:1.6}.strip-heading h3{font-size:24px}.campus-event-note{gap:12px}.campus-event-note a{gap:12px}.performance-name b{font-size:25px}}
 .concert-history{margin-top:58px;border-top:3px solid #00237e;padding-top:28px}
 .concert-history>h3{font:700 clamp(28px,4vw,42px) var(--display);color:#00237e;margin:0 0 30px}
 .concert-year{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:24px 0;border-top:1px solid #00237e22}

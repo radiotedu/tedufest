@@ -40,11 +40,9 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 - Üretim istemleri: `assets/campus-illustration-prompt.txt` ve `assets/campus-illustration-correction.txt`.
 - `tedu-theme.css`: [TEDÜ Kurumsal Kimlik Kılavuzu](https://www.tedu.edu.tr/sites/default/files/docs/teduniversitekurumsali.pdf), bölüm 2.1–2.2, PDF sayfaları 16–17. Dijital RGB değerleri: lacivert `0,35,126` / `#00237E`, sarı `247,212,23` / `#F7D417`, kırmızı `212,46,18` / `#D42E12`; yardımcı turkuaz `0,164,156` / `#00A49C`. Kurumsal amblem değiştirilmemiştir; renkler site arayüzünde ve festival illüstrasyonunda kullanılır.
 
-## Kontrol
-
 ## Konser arşivi — 13 Ekim 2026
 
-`concerts.js` tekil tarih/sanatçı kayıtlarını ve her kaydın kaynak URL’sini tutar. Arşivde 2013–2026 arasında tarihi doğrulanan 26 konser kaydı ve 7 afiş vardır. Aynı gecedeki farklı sanatçılar ayrı performans olarak gösterilebilir; afişi olan performanslar alttaki listede tekrar edilmez. Yıl filtresi ve dinamik afiş büyütme `festival.js`, görünüm `concerts.css` içindedir.
+`concerts.js` tekil tarih/sanatçı kayıtlarını ve her kaydın kaynak URL’sini tutar. Arşivde 2013–2026 arasında 26 kayıt, 7 özgün afiş ve 4 fotoğraflı sanatçı kartı vardır. TEDU Voice All Star `kind: 'event'` olarak ayrıca gösterilir; konser sayılmaz. Yalın, Pamela ve Yüzyüzeyken Konuşuruz öne çıkarılır. Diğer performanslar duraklatılabilen kayan şeritte, bütün kayıtlar kapalı başlayan yıl arşivinde yer alır. Hareket azaltma tercihi desteklenir. Yıl filtresi ve dinamik görsel büyütme `festival.js`, görünüm `concerts.css` içindedir.
 
 - Kullanıcının sağladığı mor ve ötesi (26 Eylül 2018), Can Bonomo (26 Mayıs 2022), Selin Geçit ve Motive (21 Mayıs 2026) afişleri WebP olarak eklendi. Mevcut DKTT, Arem & Arman ve İkilem afişleri tekrar eklenmedi. Afişler kırpılmadan gösterilir.
 - Erken kayıt: TED Ankara Koleji Mezunları Derneği, [114. sayı, Yalın / 5 Ekim 2013](https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf).
@@ -52,6 +50,15 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 - Emre Fel & Apartman Diskosu (5 Ekim 2025), TEDÜ Kolej Kampüsü’nde IF Ankara tarafından düzenlenen etkinlik olarak kaydedildi; TEDUFEST organizasyonu olduğu iddia edilmez.
 - Bu derleme erişilebilir tarihli kayıtları kapsar; tüm kuruluş yılları için eksiksiz resmî bir konser envanteri bulunamadı. 2019 Simge konserinin gün/ay bilgisi teyit edilemediğinden eklenmedi. Arşiv boşlukları konser yapılmadığı anlamına gelmez. Yeni doğrulanmış kayıtlar aynı veri dosyasına eklenebilir.
 - 5000+ kişi kapasitesi organizatörün bu görevde verdiği bilgiyle festival ve sponsorluk metinlerine eklendi; geçmiş katılım sayısı olarak kullanılmadı.
+
+### Eski konserlerin görselleri
+
+Özgün afişler bulunamadığında kullanıcı gerçek fotoğraflı kart kullanılmasını seçti. Yeni tasarlanan kartlar özgün konser afişi olarak sunulmaz.
+
+- `yalin-2013.jpg`: Kolejliler dergisi 114. sayı, PDF s.18'deki TEDÜFest konser fotoğrafı; gömülü görsel aynen çıkarıldı (247×144). Düşük çözünürlüklü arşiv fotoğrafıdır.
+- `pamela-2017.jpg`: Kolejliler dergisi [129. sayı](https://www.kolej.org/wp-content/uploads/129.say%C4%B1.pdf), PDF s.68, TEDÜ Bahar Şenliği haberinin sanatçı ve ekip hatıra fotoğrafı (342×171); kartta “Festival hatırası” olarak gösterilir.
+- `yyk-live-2018.jpg`: [Onur, Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Y%C3%BCzy%C3%BCzeyken_Konu%C5%9Furuz_-_17.7.18.jpg), [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Orijinal dosya değişmeden kullanıldı. Fotoğraf **17 Temmuz 2018 Olimpos** konserindendir, TEDÜ'nün 2017 konserinden değildir; bu ayrım kartta görünür kredi ve büyütme açıklamasında belirtilir. TEDÜ konserinin tarihi yıllık rapordan gelir.
+- `emre-fel-2025.jpg`: [Biletino etkinlik duyurusu](https://biletino.com/tr/e-15io/emre-fel-apartman-diskosu/) üzerindeki Emre Fel tanıtım fotoğrafı; afiş veya canlı konser fotoğrafı olarak adlandırılmaz.
 
 ## Kontroller
 
