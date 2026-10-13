@@ -5,7 +5,7 @@ import { mergeGeometries } from './vendor/BufferGeometryUtils.js';
 // All festival geometry, textures and interaction run locally. No remote model service.
 const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once:true })) : Promise.resolve();
 await ready;
-await import('./campus3d-ui.js');
+await import('./campus3d-ui.js?v=20261013c');
 const shell=document.querySelector('#festival-world');
 const host=document.querySelector('#world-canvas');
 const loading=document.querySelector('#world-loading');
@@ -48,7 +48,7 @@ function initFestival(){
 
  const materials=new Map();
  function mat(color,metalness=0,roughness=.65){const key=[color,metalness,roughness].join();if(!materials.has(key))materials.set(key,new THREE.MeshStandardMaterial({color,metalness,roughness}));return materials.get(key);}
- const m={white:mat('#fffaf5'),metal:mat('#737d8a',.76,.33),dark:mat('#292737',.45,.45),black:mat('#191a24',.15,.8),purple:mat('#00237e',.18,.35),pink:mat('#d42e12'),orange:mat('#ff8954'),yellow:mat('#f7d417'),teal:mat('#62c5b2'),grass:mat('#b7cc99'),wood:mat('#c9946b'),silver:mat('#d5d7e2',.7,.3)};
+ const m={white:mat('#fffaf5'),metal:mat('#737d8a',.76,.33),dark:mat('#292737',.45,.45),black:mat('#191a24',.15,.8),purple:mat('#00237e',.18,.35),pink:mat('#d42e12'),orange:mat('#d42e12'),yellow:mat('#f7d417'),teal:mat('#00a49c'),grass:mat('#b7cc99'),wood:mat('#c9946b'),silver:mat('#d5d7e2',.7,.3)};
  const groups={};
  for(const key of ['environment','stage','screen','stand','food','flags','experience','entrance','societies']){groups[key]=new THREE.Group();groups[key].userData.zone=key==='environment'?null:key;scene.add(groups[key]);}
  const animations=new THREE.Group();scene.add(animations);
@@ -59,10 +59,10 @@ function initFestival(){
  function cyl(r1,r2,h,x,y,z,material,parent,segments=12){return mesh(new THREE.CylinderGeometry(r1,r2,h,segments),material,x,y,z,parent);}
  function beam(a,b,r,material,parent){const delta=b.clone().sub(a);const object=mesh(new THREE.CylinderGeometry(r,r,delta.length(),8),material,0,0,0,parent);object.position.copy(a).add(b).multiplyScalar(.5);object.quaternion.setFromUnitVectors(V(0,1,0),delta.normalize());return object;}
  function emissive(color,intensity=1){return new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:intensity,roughness:.3});}
- const pinkLight=emissive('#ed46ce',2.4),purpleLight=emissive('#9d66ff',2.4),amberLight=emissive('#ffc76a',2.1);
+ const pinkLight=emissive('#d42e12',2.4),purpleLight=emissive('#007ecb',2.4),amberLight=emissive('#f7d417',2.1);
 
  function canvasTexture(width,height,draw){const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d');draw(ctx,width,height);const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;texture.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);return {canvas,ctx,texture};}
- function signTexture(text,bg='#ffffff',fg='#542d7a',sub=''){return canvasTexture(1024,256,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.textAlign='center';c.fillStyle=fg;c.font='800 82px Arial';c.fillText(text,w/2,sub?126:157);if(sub){c.font='500 32px Arial';c.fillText(sub,w/2,193);}}).texture;}
+ function signTexture(text,bg='#ffffff',fg='#00237e',sub=''){return canvasTexture(1024,256,(c,w,h)=>{c.fillStyle=bg;c.fillRect(0,0,w,h);c.textAlign='center';c.fillStyle=fg;c.font='800 82px Arial';c.fillText(text,w/2,sub?126:157);if(sub){c.font='500 32px Arial';c.fillText(sub,w/2,193);}}).texture;}
  function sign(text,x,y,z,w,h,parent,bg,fg,sub){const material=new THREE.MeshBasicMaterial({map:signTexture(text,bg,fg,sub),toneMapped:false});return mesh(new THREE.PlaneGeometry(w,h),material,x,y,z,parent);}
  function roundedSlab(w,d,r,y,height,material,parent){const s=new THREE.Shape();s.moveTo(-w/2+r,-d/2);s.lineTo(w/2-r,-d/2);s.quadraticCurveTo(w/2,-d/2,w/2,-d/2+r);s.lineTo(w/2,d/2-r);s.quadraticCurveTo(w/2,d/2,w/2-r,d/2);s.lineTo(-w/2+r,d/2);s.quadraticCurveTo(-w/2,d/2,-w/2,d/2-r);s.lineTo(-w/2,-d/2+r);s.quadraticCurveTo(-w/2,-d/2,-w/2+r,-d/2);const o=mesh(new THREE.ExtrudeGeometry(s,{depth:height,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:.08,bevelThickness:.07,curveSegments:10}),material,0,y,0,parent);o.rotation.x=-Math.PI/2;return o;}
  // Main stage: load-bearing truss frame, roof, deck, stairways and speaker arrays.
@@ -104,10 +104,10 @@ function initFestival(){
  mesh(new THREE.PlaneGeometry(13.3,6),led,0,5.4,-11.705,groups.screen);
  for(const x of [-6.82,6.82])box(.075,6.4,.09,x,5.4,-11.65,pinkLight,groups.screen);
  for(const y of [2.21,8.6])box(13.7,.06,.09,0,y,-11.65,purpleLight,groups.screen);
- const sideCanvas=canvasTexture(512,768,(c,w,h)=>{const gradient=c.createLinearGradient(0,0,w,h);gradient.addColorStop(0,'#6729b9');gradient.addColorStop(.6,'#9c40e7');gradient.addColorStop(1,'#fa7278');c.fillStyle=gradient;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.textAlign='center';c.font='bold 54px Arial';c.fillText('MARKAN',w/2,360);c.fillText('BURADA',w/2,425);c.font='28px Arial';c.fillText('TEDÜ FEST',w/2,680);});
+ const sideCanvas=canvasTexture(512,768,(c,w,h)=>{const gradient=c.createLinearGradient(0,0,w,h);gradient.addColorStop(0,'#00237e');gradient.addColorStop(.6,'#007ecb');gradient.addColorStop(1,'#00a49c');c.fillStyle=gradient;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.textAlign='center';c.font='bold 54px Arial';c.fillText('MARKAN',w/2,360);c.fillText('BURADA',w/2,425);c.font='28px Arial';c.fillText('TEDÜ FEST',w/2,680);});
  for(const x of [-11,11]){beam(V(x,.3,-8),V(x,7.6,-8),.1,m.silver,groups.screen);box(3.6,5.5,.25,x,5.7,-8,m.dark,groups.screen);mesh(new THREE.PlaneGeometry(3.35,5.2),new THREE.MeshBasicMaterial({map:sideCanvas.texture,toneMapped:false}),x,5.7,-7.86,groups.screen);}
  const logo=new Image();logo.src='assets/logos/tedu-fest-color.svg';let logoReady=false;logo.onload=()=>{logoReady=true;drawLED(0);};
- function drawLED(time){const c=screen.ctx,w=1024,h=512;const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#281058');g.addColorStop(.5,'#6930a8');g.addColorStop(1,'#eb5189');c.fillStyle=g;c.fillRect(0,0,w,h);c.strokeStyle='#f9a4df';c.globalAlpha=.35;c.lineWidth=2;for(let i=0;i<5;i++){c.beginPath();c.ellipse(w*.5,h*.55,220+i*90,160+i*48,Math.sin(time*.12)*.2,0,Math.PI*2);c.stroke();}c.globalAlpha=1;for(let i=0;i<44;i++){const v=25+Math.abs(Math.sin(i*1.31+time*1.8))*50;c.fillStyle=i%2?'#ffaa60':'#d874f3';c.globalAlpha=.7;c.fillRect(i*24,h-v,12,v);}c.globalAlpha=1;if(logoReady)c.drawImage(logo,290,23,430,330);c.fillStyle='#fff5ff';c.textAlign='center';c.font='600 21px Arial';c.fillText('ŞEHRİN ORTASINDA. RİTMİN İÇİNDE.',w/2,405);screen.texture.needsUpdate=true;}
+ function drawLED(time){const c=screen.ctx,w=1024,h=512;const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#001951');g.addColorStop(.5,'#00237e');g.addColorStop(1,'#00a49c');c.fillStyle=g;c.fillRect(0,0,w,h);c.strokeStyle='#7cdbde';c.globalAlpha=.35;c.lineWidth=2;for(let i=0;i<5;i++){c.beginPath();c.ellipse(w*.5,h*.55,220+i*90,160+i*48,Math.sin(time*.12)*.2,0,Math.PI*2);c.stroke();}c.globalAlpha=1;for(let i=0;i<44;i++){const v=25+Math.abs(Math.sin(i*1.31+time*1.8))*50;c.fillStyle=i%2?'#f7d417':'#d42e12';c.globalAlpha=.7;c.fillRect(i*24,h-v,12,v);}c.globalAlpha=1;if(logoReady)c.drawImage(logo,290,23,430,330);c.fillStyle='#fff5ff';c.textAlign='center';c.font='600 21px Arial';c.fillText('ŞEHRİN ORTASINDA. RİTMİN İÇİNDE.',w/2,405);screen.texture.needsUpdate=true;}
  drawLED(0);
 
 
@@ -130,7 +130,7 @@ function initFestival(){
  }
  function foodTent(x,z,color,label){const p=groups.food;box(4.3,.17,3.5,x,.35,z,m.white,p);for(const dx of [-1.95,1.95])for(const dz of [-1.45,1.45])beam(V(x+dx,.4,z+dz),V(x+dx,3.1,z+dz),.06,m.white,p);const roof=mesh(new THREE.ConeGeometry(3.15,1.3,4),mat(color),x,3.7,z,p);roof.rotation.y=Math.PI/4;roof.scale.z=.82;box(4.3,.52,3.6,x,3.04,z,mat(color),p);box(3.8,1.1,.8,x,1,z+1.05,m.wood,p);box(4,.12,1,x,1.6,z+1.05,m.white,p);sign(label,x,3.04,z+1.815,3.7,.41,p,color,'#fffdf5');for(let i=0;i<4;i++)cyl(.1,.1,.3,x-.75+i*.5,1.81,z+1.02,m.white,p);}
  function table(x,z){cyl(.75,.75,.1,x,1.2,z,m.wood,groups.food,24);cyl(.07,.07,1,x,.67,z,m.white,groups.food);for(const [dx,dz]of[[0,-1.1],[0,1.1],[-1.1,0],[1.1,0]]){cyl(.26,.26,.1,x+dx,.68,z+dz,m.white,groups.food);beam(V(x+dx,.25,z+dz),V(x+dx,.65,z+dz),.06,m.wood,groups.food);}}
- const flagTexture=canvasTexture(256,512,(c,w,h)=>{const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#ff965f');g.addColorStop(.5,'#f052ae');g.addColorStop(1,'#8647cf');c.fillStyle=g;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.textAlign='center';c.save();c.translate(135,255);c.rotate(-Math.PI/2);c.font='900 56px Arial';c.fillText('TEDÜ FEST',0,0);c.restore();c.beginPath();c.moveTo(100,70);c.lineTo(115,95);c.lineTo(150,107);c.lineTo(120,122);c.lineTo(105,152);c.lineTo(90,120);c.lineTo(58,110);c.lineTo(87,96);c.closePath();c.fill();}).texture;
+ const flagTexture=canvasTexture(256,512,(c,w,h)=>{const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#d42e12');g.addColorStop(.5,'#00237e');g.addColorStop(1,'#007ecb');c.fillStyle=g;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.textAlign='center';c.save();c.translate(135,255);c.rotate(-Math.PI/2);c.font='900 56px Arial';c.fillText('TEDÜ FEST',0,0);c.restore();c.beginPath();c.moveTo(100,70);c.lineTo(115,95);c.lineTo(150,107);c.lineTo(120,122);c.lineTo(105,152);c.lineTo(90,120);c.lineTo(58,110);c.lineTo(87,96);c.closePath();c.fill();}).texture;
  function flag(x,z,phase){const parent=groups.flags;box(.65,.12,.65,x,.28,z,m.silver,parent);beam(V(x,.35,z),V(x,6.5,z),.055,m.silver,parent);mesh(new THREE.SphereGeometry(.09,8,6),m.white,x,6.6,z,parent);const geometry=new THREE.PlaneGeometry(1.25,3.65,12,18);geometry.translate(.625,0,0);const cloth=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({map:flagTexture,side:THREE.DoubleSide,roughness:.7}));cloth.position.set(x,4.51,z);cloth.userData.zone='flags';cloth.userData.phase=phase;cloth.userData.original=geometry.attributes.position.array.slice();animations.add(cloth);flags.push(cloth);}
  function tree(x,z,scale=1){const p=groups.environment;cyl(.75,.8,.7,x,.5,z,mat('#e4d8dc'),p);cyl(.16,.22,2.1*scale,x,1.5*scale,z,m.wood,p);mesh(new THREE.IcosahedronGeometry(1.35*scale,1),mat('#87ad81'),x,3.15*scale,z,p);mesh(new THREE.IcosahedronGeometry(.95*scale,1),mat('#abc599'),x+.65*scale,3.0*scale,z+.35,p);}
 
@@ -139,30 +139,42 @@ function initFestival(){
  const stone=mat('#e4e0d5'),facade=mat('#f3f2eb'),glass=mat('#86adb6',.3,.24),edge=mat('#b4bfc1');
  box(67,1.15,52,-1,-.52,0,mat('#d1d6cc'));
  box(65,.15,50,-1,.09,0,stone);
- box(43,.12,29,-1,.23,0,mat('#91b56e'));
- // Walkways and the shallow terraces visible in the festival photographs.
- box(46,.12,3,-1,.27,-12.8,stone);box(46,.12,3,-1,.27,12.8,stone);
- box(3,.12,28,-22,.27,0,stone);
- for(let i=0;i<3;i++){box(45,.16*(i+1),.7,0,.22+i*.08,14.1+i*.7,stone);}
- // The food row is on the long perimeter wall, away from both stage wings.
+ // Broad middle garden with a semicircular western end and a raised lawn edge.
+ // Reference: TEDU's 360 tour, Sosyal Alanlar > Orta Bahçe.
+ function gardenOutline(inset=0){
+  const r=15.2-inset,cx=-8.8,right=23.2-inset;
+  const shape=new THREE.Shape();shape.moveTo(cx,-r);shape.lineTo(right,-r);
+  shape.lineTo(right,r);shape.lineTo(cx,r);
+  shape.absarc(cx,0,r,Math.PI/2,Math.PI*1.5,false);shape.closePath();return shape;
+ }
+ function gardenSurface(shape,y,depth,material){
+  const surface=mesh(new THREE.ExtrudeGeometry(shape,{depth,bevelEnabled:false,curveSegments:48}),material,0,y,0);
+  surface.rotation.x=-Math.PI/2;return surface;
+ }
+ gardenSurface(gardenOutline(),.16,.22,mat('#b3bcb2'));
+ gardenSurface(gardenOutline(.35),.39,.05,mat('#91b56e'));
+ // A continuous curved promenade follows the round part of the grass.
+ const promenade=gardenOutline(-2.25);promenade.holes.push(new THREE.Path(gardenOutline(-.2).getPoints(96)));
+ const promenadeMesh=mesh(new THREE.ShapeGeometry(promenade,96),stone,0,.27,0);promenadeMesh.rotation.x=-Math.PI/2;
+ // Terrace access sits on the garden's western side, away from the stage.
+ for(let i=0;i<3;i++)box(1.1,.1*(i+1),7,-25.9+i*.6,.16+i*.05,0,stone);
+ // The opposite, southern wall carries the food stalls; every counter faces the lawn.
+ box(45,.85,.5,-1,.7,16,mat('#c8c5b6'));
+ box(45,.1,.7,-1,1.16,16,mat('#a6aba4'));
+ box(39,.12,5.2,-5,.45,13.1,stone);
+ for(const [x,color,label] of [[-19,'#d42e12','SOKAK LEZZETLERİ'],[-13.6,'#f7d417','ATIŞTIRMALIK'],[-8.2,'#00237e','KAHVE'],[-2.8,'#00a49c','SOĞUK İÇECEK'],[2.6,'#d42e12','TATLI MOLASI']])foodTent(-x,-13.5,color,label);
+ table(15,-9.4);table(9.5,-9.4);table(4,-9.4);
+ groups.food.rotation.y=Math.PI;groups.food.position.y=.25;
+ // The north boundary stays open for circulation and trees.
  box(57,1.8,.5,-1,1.05,-22,mat('#c8c5b6'));
  box(57,.15,.7,-1,2,-22,mat('#a6aba4'));
- for(let x=-28;x<=27;x+=2.8){box(.14,1.1,.14,x,2.62,-22,m.dark);}
+ for(let x=-28;x<=27;x+=2.8)box(.14,1.1,.14,x,2.62,-22,m.dark);
  beam(V(-28,3.12,-22),V(27,3.12,-22),.05,m.dark);
- box(39,.12,7,-6,.25,-17.8,mat('#d2ccba'));
- foodTent(-19,-17.8,'#d42e12','SOKAK LEZZETLERİ');
- foodTent(-13.6,-17.8,'#f7d417','ATIŞTIRMALIK');
- foodTent(-8.2,-17.8,'#00237e','KAHVE');
- foodTent(-2.8,-17.8,'#00a49c','SOĞUK İÇECEK');
- foodTent(2.6,-17.8,'#d42e12','TATLI MOLASI');
- table(-15,-13.5);table(-9.5,-13.5);table(-4,-13.5);
  for(let x=-23;x<25;x+=6)tree(x,-24.4,.9);
- for(const [x,z] of [[-23,7],[-23,-5],[23,13],[23,-13]])tree(x,z,.85);
- booth(-16,10.5,'#a477ce','MARKA DENEYİMİ');booth(-10.5,10.5,'#ef8c58','KEŞFET & DENE');
- for(const x of [-20,-14,-8])flag(x,-8.5,x*.3);
- flag(-21,12,1);flag(20,12,2);
- // Low planting beds preserve the open sightline from the audience to the stage.
- for(let i=0;i<7;i++){box(2.5,.5,1.1,-19+i*4.3,.48,15.8,mat('#c3b6a4'));mesh(new THREE.IcosahedronGeometry(.55,1),mat('#708a5a'),-19+i*4.3,.98,15.8);}
+ for(const [x,z] of [[-22,8],[-22,-8],[23,13],[23,-13]])tree(x,z,.85);
+ booth(-15,-17.4,'#00237e','MARKA DENEYİMİ');booth(-9.5,-17.4,'#d42e12','KEŞFET & DENE');
+ for(const x of [-19,-13,-7])flag(x,-11.5,x*.3);
+ flag(-23,2,1);flag(20,12,2);
  function building(name,x,z,w,d,h,accent='#b5b9b6'){
   box(w,h,d,x,h/2+.2,z,facade);
   box(w+.3,.25,d+.3,x,h+.4,z,mat(accent));
@@ -202,25 +214,25 @@ function initFestival(){
 
  // Instanced people keep the crowd detailed without hundreds of draw calls.
  let seed=27;function random(){seed=(seed*16807)%2147483647;return(seed-1)/2147483646;}
- const people=[];for(let i=0;i<145;i++){let x=-16+random()*22,z=-8+random()*17;people.push({x,z,angle:random()*Math.PI*2,height:.77+random()*.23,color:Math.floor(random()*6)});}
- const shirtColors=['#9263bc','#f38c75','#f2c254','#f7f0de','#586781','#69a995'];
+ const people=[];for(let i=0;i<195;i++){let x=-20+random()*29,z=-10+random()*18;people.push({x,z,angle:random()*Math.PI*2,height:.77+random()*.23,color:Math.floor(random()*6)});}
+ const shirtColors=['#00237e','#d42e12','#f2c254','#f7f0de','#586781','#69a995'];
  const temp=new THREE.Object3D();
  function instances(geometry,material,items,transform){const inst=new THREE.InstancedMesh(geometry,material,items.length);inst.castShadow=true;inst.receiveShadow=true;items.forEach((person,i)=>{transform(person,temp);temp.updateMatrix();inst.setMatrixAt(i,temp.matrix)});scene.add(inst);}
- for(let color=0;color<shirtColors.length;color++){const subset=people.filter(x=>x.color===color);instances(new THREE.CapsuleGeometry(.14,.35,3,6),mat(shirtColors[color]),subset,(p,t)=>{t.position.set(p.x,.83*p.height,p.z);t.rotation.set(0,p.angle,0);t.scale.set(1,p.height,1)});}
- instances(new THREE.SphereGeometry(.135,8,6),mat('#c7977e'),people,(p,t)=>{t.position.set(p.x,1.25*p.height,p.z);t.rotation.set(0,0,0);t.scale.set(1,1,1)});
- for(const side of [-1,1])instances(new THREE.CylinderGeometry(.06,.065,.4,6),mat('#555163'),people,(p,t)=>{t.position.set(p.x+Math.cos(p.angle)*side*.085,.39*p.height,p.z+Math.sin(p.angle)*side*.085);t.rotation.set(0,p.angle,0);t.scale.set(1,p.height,1)});
+ for(let color=0;color<shirtColors.length;color++){const subset=people.filter(x=>x.color===color);instances(new THREE.CapsuleGeometry(.14,.35,3,6),mat(shirtColors[color]),subset,(p,t)=>{t.position.set(p.x,.83*p.height+.2,p.z);t.rotation.set(0,p.angle,0);t.scale.set(1,p.height,1)});}
+ instances(new THREE.SphereGeometry(.135,8,6),mat('#c7977e'),people,(p,t)=>{t.position.set(p.x,1.25*p.height+.2,p.z);t.rotation.set(0,0,0);t.scale.set(1,1,1)});
+ for(const side of [-1,1])instances(new THREE.CylinderGeometry(.06,.065,.4,6),mat('#555163'),people,(p,t)=>{t.position.set(p.x+Math.cos(p.angle)*side*.085,.39*p.height+.2,p.z+Math.sin(p.angle)*side*.085);t.rotation.set(0,p.angle,0);t.scale.set(1,p.height,1)});
 
  // Merge static geometry by zone/material. Picking keeps the zone on each merged mesh.
  function optimize(group){group.updateMatrixWorld(true);const batches=new Map();const originals=[];group.traverse(o=>{if(!o.isMesh||Array.isArray(o.material))return;const key=o.material.uuid;const geometry=o.geometry.clone().applyMatrix4(o.matrixWorld);if(!batches.has(key))batches.set(key,{material:o.material,geometries:[]});batches.get(key).geometries.push(geometry);originals.push(o);});for(const o of originals){o.parent.remove(o);o.geometry.dispose();}for(const {material,geometries}of batches.values()){const geometry=mergeGeometries(geometries,false);if(geometry){const o=new THREE.Mesh(geometry,material);o.castShadow=true;o.receiveShadow=true;o.userData.zone=group.userData.zone;group.add(o);}geometries.forEach(g=>g.dispose());}}
  Object.values(groups).forEach(g=>{optimize(g);g.position.set(0,0,0);g.rotation.set(0,0,0);});
 
- const locations={stand:{target:[-17,2,9],pin:[-17,5,9],color:'#f18a52',label:'Marka stantları'},flags:{target:[-18,3,-7],pin:[-18,7,-7],color:'#c746a4',label:'Bayraklar'},food:{target:[-5,2,-16],pin:[-5,5,-16],color:'#d5a429',label:'Duvar boyu lezzetler'},societies:{target:[-64,1,1],pin:[-64,5,1],color:'#369f8c',label:'Topluluklar · Aksu'}};
+ const locations={stand:{target:[-13,2,-17],pin:[-13,5,-17],color:'#d42e12',label:'Marka stantları'},flags:{target:[-18,3,-11],pin:[-18,7,-11],color:'#00237e',label:'Bayraklar'},food:{target:[-8,2,13.5],pin:[-8,6,13.5],color:'#f7d417',label:'Duvar boyu lezzetler'},societies:{target:[-64,1,1],pin:[-64,5,1],color:'#00a49c',label:'Topluluklar · Aksu'}};
  const pins=document.querySelector('#world-hotspots');
  for(const [key,loc]of Object.entries(locations)){const b=document.createElement('button');b.type='button';b.className='world-hotspot';b.hidden=true;b.setAttribute('aria-label',loc.label+' alanını seç');b.setAttribute('aria-pressed',String(key==='food'));b.dataset.zone=key;b.style.setProperty('--pin-color',loc.color);b.innerHTML='<i></i><span>'+loc.label+'</span>';b.addEventListener('click',()=>pickZone(key));pins.appendChild(b);loc.element=b;loc.vector=V(...loc.pin);}
- const selection=new THREE.Mesh(new THREE.RingGeometry(1.25,1.36,64),new THREE.MeshBasicMaterial({color:'#a751e9',transparent:true,opacity:.65,side:THREE.DoubleSide,depthWrite:false}));selection.rotation.x=-Math.PI/2;selection.position.set(-5,.28,-16);scene.add(selection);
+ const selection=new THREE.Mesh(new THREE.RingGeometry(1.25,1.36,64),new THREE.MeshBasicMaterial({color:'#f7d417',transparent:true,opacity:.65,side:THREE.DoubleSide,depthWrite:false}));selection.rotation.x=-Math.PI/2;selection.position.set(-8,.6,13.5);scene.add(selection);
  let active='food';
- function pickZone(key){active=key;const loc=locations[key];selection.position.set(loc.target[0],.28,loc.target[2]);document.dispatchEvent(new CustomEvent('festival-scene-pick',{detail:{key}}));}
- document.addEventListener('festival-zone-selected',e=>{const key=e.detail.key;if(locations[key]){active=key;selection.position.set(locations[key].target[0],.28,locations[key].target[2]);for(const [k,l]of Object.entries(locations))l.element.setAttribute('aria-pressed',String(k===key));}});
+ function pickZone(key){active=key;const loc=locations[key];selection.position.set(loc.target[0],.6,loc.target[2]);document.dispatchEvent(new CustomEvent('festival-scene-pick',{detail:{key}}));}
+ document.addEventListener('festival-zone-selected',e=>{const key=e.detail.key;if(locations[key]){active=key;selection.position.set(locations[key].target[0],.6,locations[key].target[2]);for(const [k,l]of Object.entries(locations))l.element.setAttribute('aria-pressed',String(k===key));}});
  const raycaster=new THREE.Raycaster();const pointer=new THREE.Vector2();let pointerDown;
  const clickables=[groups.stand,groups.food,groups.flags,groups.societies,...flags];
  function rayAt(e){const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.intersectObjects(clickables,true).find(h=>h.object.userData.zone||h.object.parent?.userData.zone);}
@@ -228,7 +240,7 @@ function initFestival(){
  renderer.domElement.addEventListener('pointerup',e=>{if(!pointerDown||Math.hypot(pointerDown.x-e.clientX,pointerDown.y-e.clientY)>7)return;const hit=rayAt(e);if(hit)pickZone(hit.object.userData.zone||hit.object.parent.userData.zone);pointerDown=null;});
  let lastHover=0;renderer.domElement.addEventListener('pointermove',e=>{if(e.buttons||performance.now()-lastHover<70)return;lastHover=performance.now();host.style.cursor=rayAt(e)?'pointer':'grab';});
 
- const views={overview:{position:[-5,63,-69],target:[0,0,0]},stage:{position:[-30,23,-26],target:[12,4,0]},aerial:{position:[0,91,-.1],target:[0,0,0]},campus:{position:[-90,100,-100],target:[-30,0,0]},food:{position:[-5,30,25],target:[-5,1,-16]}};
+ const views={overview:{position:[-34,67,-70],target:[0,0,0]},stage:{position:[-30,23,-26],target:[12,4,0]},aerial:{position:[0,91,-.1],target:[0,0,0]},campus:{position:[-90,100,-100],target:[-30,0,0]},food:{position:[-16,35,-28],target:[-7,1,12]}};
  let transition=null,paused=reducedMotion.matches,visible=false,lastTime=0,lastLED=0;
  function responsivePosition(p){return V(...p).multiplyScalar(Math.max(1,1.25/(host.clientWidth/host.clientHeight)));}
  function setView(name,immediate=false){const view=views[name];if(!view)return;const target=V(...view.target);const offset=V(...view.position).sub(target);const destination=responsivePosition(offset.toArray()).add(target);if(immediate||reducedMotion.matches){camera.position.copy(destination);controls.target.copy(target);controls.update();transition=null;}else transition={from:camera.position.clone(),to:destination,startTarget:controls.target.clone(),target,start:performance.now()};document.querySelectorAll('[data-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.camera===name)));}

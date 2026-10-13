@@ -35,6 +35,39 @@
 .world-hotspot[aria-pressed=true],.world-tools button[aria-pressed=true]{background:var(--tedu-blue)}
 .world-zones button[aria-pressed=true],.stage-zone-tabs button[aria-pressed=true]{background:#eaf0fc;border-color:#8196c3;color:var(--tedu-blue)}
 .stage-selection-copy>span,.stage-selection-copy li{color:var(--tedu-blue)}
+/* Carry the university palette through the remaining festival details. */
+:root{--ink:#122447}
+.main-sponsor{background:#edf2fc;border-color:#c9d5ec}
+.main-sponsor .button:hover{background:#001951}
+.facts strong,.stage-bar b,.stage-popover h3{color:var(--tedu-blue)}
+.campus3d{background:#eef3f8}
+.festival-world,.stage-explorer{border-color:#cbd9ea}
+.world-viewport{background:radial-gradient(ellipse at 50% 55%,#e3edf2,#f7fafc 75%)}
+.world-detail{background:#fbfdff}
+.world-detail>span,.world-tools button{color:var(--tedu-blue)}
+.world-detail p,.world-detail ul,.world-hint{color:#54667a}
+.view-controls{background:#edf2f7}
+#world-canvas canvas:focus-visible{outline-color:var(--tedu-blue)}
+#world-loading>span{border-top-color:var(--tedu-blue)}
+.stage-sponsors{background:#fff}
+.stage-frame,.stage-zone-tabs{background:#f3f7fc}
+.stage-bar,.stage-zone-tabs,.stage-selection-action{border-color:#d7e1ee}
+.stage-bar,.stage-selection-action>span,.stage-selection-copy p,.stage-popover p{color:#586b83}
+.stage-zone-tabs button{color:var(--tedu-blue);border-color:#cbd9ea}
+.stage-zone:hover .zone-face,.stage-zone:focus-visible .zone-face,.stage-zone[aria-pressed=true] .zone-face{stroke:var(--tedu-blue);filter:drop-shadow(0 0 10px #00237e40)}
+.stage-zone:focus-visible .zone-face{stroke:var(--tedu-red)}
+.stage-popover{border-color:#8ca4cf;color:var(--tedu-blue);background:#fffffff7;box-shadow:0 18px 40px #00237e25}
+.stage-popover>div>span{color:var(--tedu-blue)}
+.stage-popover button{background:#eaf0fc;color:var(--tedu-blue)}
+.technology-credit{background:var(--tedu-blue);color:#fff}
+.technology-credit>.wrap{display:flex;justify-content:flex-end;align-items:center;gap:14px;min-height:64px;padding-top:16px;padding-bottom:16px}
+.technology-credit>.wrap>span{font-size:11px;color:#dbe4f8}
+.technology-credit a{display:inline-flex;align-items:center;gap:13px;color:white;text-decoration:none;min-height:28px}
+.technology-credit img{display:block;width:132px;height:auto;flex-shrink:0}
+.technology-credit a>span{border-left:1px solid #ffffff55;padding-left:13px;font-size:12px;font-weight:800}
+.technology-credit a:hover>span{text-decoration:underline;text-underline-offset:4px}
+.technology-credit a:focus-visible{outline:2px solid var(--tedu-yellow);outline-offset:7px;border-radius:2px}
+@media(max-width:520px){.technology-credit>.wrap{gap:9px;padding-left:20px;padding-right:20px;flex-wrap:wrap}.technology-credit>.wrap>span{font-size:10px}.technology-credit img{width:110px}.technology-credit a{gap:9px}.technology-credit a>span{font-size:10px;padding-left:9px}}
 @media(max-width:760px){
  .festival-map-pin{padding:3px;border-width:2px}
  .festival-map-pin span{display:none}

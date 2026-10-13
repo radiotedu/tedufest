@@ -34,6 +34,9 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 
 ## Kampüs ve TEDÜ renkleri
 
+- 13 Ekim yerleşim güncellemesi: [TEDÜ 360 sanal turu](https://tourmake.net/tr/tour/634cdb2232c45ad25d200cfdc3c15ef4), Sosyal Alanlar → Orta Bahçe görünümü incelendi. Geniş çim yüzeyi, yuvarlak bahçe ucu, çevre yürüyüş yolu ve kot farkı modele işlendi. Organizatörün düzeltmesiyle yemek sırası önceki yerinin karşısındaki, sahnenin solundaki duvara taşındı; tezgâhlar çim alana dönüktür. Kamera, alan işaretleri ve seçme geometrisi yeni konumu izler.
+- Sayfanın sağ altındaki RadioTEDU Technologies imzası [resmî teknoloji sayfasına](https://radiotedu.com/technology) bağlanır. Şeffaf PNG, aynı sayfanın `/technology/assets/radiotedu-logo-white.png` varlığıdır. Festival wordmark'ının mevcut çizimi korunarak renkleri kurumsal palete uyarlandı.
+
 - `campus3d.js`, `campus3d-ui.js`, `campus3d.css`: döndürülebilen kampüs modeli; A–B–K çim alanı, Ziya Gökalp Caddesi ve karşıdaki Aksu blokları. Yeme içme stantları sahnenin iki yanına değil, çim alanın uzun kenarındaki duvar boyunca yerleştirilmiştir. Alan seçimi, yakınlaştırma, dört kamera açısı, hareketi duraklatma ve WebGL bulunmadığında görsel yedek desteklenir.
 - `vendor/`: yerel Three.js modülleri ve MIT lisansı.
 - `assets/campus-festival.png`: resmî kroki referans alınarak built-in Imagegen ile üretilen festival illüstrasyonu. Web sürümü `assets/campus-festival.webp`; kaynak çözünürlüğü korunarak sıkıştırılmıştır. Görsel teknik bir yer-yön planı değildir; sitede resmî krokiye ayrı bağlantı vardır.
