@@ -42,5 +42,18 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 
 ## Kontrol
 
+## Konser arşivi — 13 Ekim 2026
+
+`concerts.js` tekil tarih/sanatçı kayıtlarını ve her kaydın kaynak URL’sini tutar. Arşivde 2013–2026 arasında tarihi doğrulanan 26 konser kaydı ve 7 afiş vardır. Aynı gecedeki farklı sanatçılar ayrı performans olarak gösterilebilir; afişi olan performanslar alttaki listede tekrar edilmez. Yıl filtresi ve dinamik afiş büyütme `festival.js`, görünüm `concerts.css` içindedir.
+
+- Kullanıcının sağladığı mor ve ötesi (26 Eylül 2018), Can Bonomo (26 Mayıs 2022), Selin Geçit ve Motive (21 Mayıs 2026) afişleri WebP olarak eklendi. Mevcut DKTT, Arem & Arman ve İkilem afişleri tekrar eklenmedi. Afişler kırpılmadan gösterilir.
+- Erken kayıt: TED Ankara Koleji Mezunları Derneği, [114. sayı, Yalın / 5 Ekim 2013](https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf).
+- 2016–2019 konserleri TEDÜ yıllık gösterge raporları ve Mezunlar Derneği 129. sayısından; sonraki etkinlikler TEDÜ duyurularından doğrulandı. Kaynakların tam bağlantıları kayıtların yanında bulunur.
+- Emre Fel & Apartman Diskosu (5 Ekim 2025), TEDÜ Kolej Kampüsü’nde IF Ankara tarafından düzenlenen etkinlik olarak kaydedildi; TEDUFEST organizasyonu olduğu iddia edilmez.
+- Bu derleme erişilebilir tarihli kayıtları kapsar; tüm kuruluş yılları için eksiksiz resmî bir konser envanteri bulunamadı. 2019 Simge konserinin gün/ay bilgisi teyit edilemediğinden eklenmedi. Arşiv boşlukları konser yapılmadığı anlamına gelmez. Yeni doğrulanmış kayıtlar aynı veri dosyasına eklenebilir.
+- 5000+ kişi kapasitesi organizatörün bu görevde verdiği bilgiyle festival ve sponsorluk metinlerine eklendi; geçmiş katılım sayısı olarak kullanılmadı.
+
+## Kontroller
+
 `node --check app.js`, `node --check stage2d.js`, `node --check festival.js`.
 Masaüstü ve mobilde gün seçimi, sahne yüzeyleri, büyütme penceresi, video duraklatma ve e-posta bağlantıları tarayıcıdan kontrol edilir.
