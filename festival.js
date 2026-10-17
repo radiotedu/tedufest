@@ -1,5 +1,5 @@
 (() => {
-  const concerts = window.TEDUFEST_CONCERTS;
+  const concerts = [...window.TEDUFEST_CONCERTS].sort((a,b) => b.date.localeCompare(a.date) || (b.time || '').localeCompare(a.time || ''));
   const years = [...new Set(concerts.map(concert => concert.date.slice(0, 4)))];
   const formatDate = value => new Intl.DateTimeFormat('tr-TR', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(`${value}T12:00:00Z`));
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -13,7 +13,7 @@
   document.querySelector('#program').insertAdjacentHTML('afterend', `<section class="archive section" id="arsiv"><div class="wrap"><div class="section-heading"><div><span class="section-label">Afişler, sahneler, unutulmayan geceler.</span><h2>Birlikte söyledik.<br>Birlikte hatırlıyoruz.</h2></div><p>Yalın’dan Pamela’ya, mor ve ötesi’nden<br>Yüzyüzeyken Konuşuruz’a. Aynı heyecan, yıllar boyu.</p></div><div class="archive-controls"><div class="archive-years" role="group" aria-label="Arşiv yılını seç"><button type="button" data-year="all" aria-pressed="true" aria-controls="archive-results">Tüm yıllar</button>${years.map(year => `<button type="button" data-year="${year}" aria-pressed="false" aria-controls="archive-results">${year}</button>`).join('')}</div><p class="archive-count" role="status" aria-live="polite"></p></div><div id="archive-results"></div></div></section>`);
   const renderArchive = year => {
     const selected = concerts.filter(concert => year === 'all' || concert.date.startsWith(year));
-    const featured = selected.filter(p => p.image && p.kind !== 'event').sort((a,b) => (a.featuredOrder || 99) - (b.featuredOrder || 99));
+    const featured = selected.filter(p => p.image && p.kind !== 'event');
     const performances = selected.filter(p => !p.image && p.kind !== 'event');
     const events = selected.filter(p => p.kind === 'event');
     const strip = performances.map(p => `<span class="performance-name"><b>${p.name}</b><span>${formatDate(p.date)}</span><i aria-hidden="true">✳</i></span>`).join('');
@@ -46,7 +46,6 @@
   });
 
 
-  document.querySelector('#content').insertAdjacentHTML('beforeend', `<section class="campus section" id="kampus"><div class="wrap"><div class="section-heading"><div><span class="section-label">İki yaka. Tek festival.</span><h2>Buluşma noktamız:<br>kampüsün tamamı.</h2></div><p>Çim alanda müzik, karşı kampüste yeni keşifler.<br>TEDÜ’nün her köşesinde başka bir karşılaşma.</p></div><div class="campus-layout"><div class="campus-map"><div class="map-topline"><span>TED ÜNİVERSİTESİ · KOLEJ / ANKARA</span><button data-image="assets/campus-festival.webp" data-caption="TEDUFEST · İki yaka, tek festival" aria-label="Kampüs haritasını büyüt">Haritayı büyüt ↗</button></div><div class="festival-map-art"><button data-image="assets/campus-festival.webp" data-caption="TEDUFEST · İki yaka, tek festival" aria-label="Festival kampüs illüstrasyonunu büyüt"><img src="assets/campus-festival.webp" width="1776" height="888" loading="lazy" alt="TEDÜ festival kampüsü illüstrasyonu: sağda A–B–K çim alanında ana sahne ve duvar boyunca yemek stantları; caddenin karşısındaki Aksu avlusunda topluluk etkinlikleri."></button><a href="#alan" class="festival-map-pin stage-map-pin" aria-label="1 · Çim alan ve ana sahneyi 3D haritada keşfet"><b>1</b><span>Çim alan & sahne</span></a><a href="#aksu-etkinlikleri" class="festival-map-pin societies-map-pin" aria-label="2 · Aksu topluluklar ve etkinlikler"><b>2</b><span>Topluluklar</span></a></div><div class="map-bottomline"><span><i aria-hidden="true"></i>İki yaka. Tek festival.</span><a href="https://www.tedu.edu.tr/yer-yon-bulma-ve-surdurulebilirlik-haritalari" target="_blank" rel="noopener">TEDÜ ulaşım ve kampüs krokisi ↗</a></div></div><div class="campus-places"><article><span class="place-number">01</span><div><span class="place-kicker">İNCESU · A / B / K BLOKLARI</span><h3>Çim Alan & Ana Sahne</h3><p>Konserin başladığı, aynı şarkıya eşlik ettiğimiz yer. Ana sahne, A–B–K bloklarının arasındaki çim alanda.</p><a href="#sahne-sponsorlugu" class="text-link">Sahneyi keşfet ↗</a></div></article><article id="aksu-etkinlikleri"><span class="place-number">02</span><div><span class="place-kicker">AKSU · KARŞI KAMPÜS</span><h3>Topluluklar & Etkinlikler</h3><p>Ziya Gökalp Caddesi’nin karşı tarafında topluluk buluşmaları, atölyeler ve kampüsün gündüz enerjisi.</p><a href="#program" class="text-link">2025’ten anlara dön ↗</a></div></article></div></div></div></section>`);
 
   const dialog = document.createElement('dialog');
   dialog.className = 'image-dialog';

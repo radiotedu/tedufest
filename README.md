@@ -37,7 +37,7 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 - 13 Ekim yerleşim güncellemesi: [TEDÜ 360 sanal turu](https://tourmake.net/tr/tour/634cdb2232c45ad25d200cfdc3c15ef4), Sosyal Alanlar → Orta Bahçe görünümü incelendi. Geniş çim yüzeyi, yuvarlak bahçe ucu, çevre yürüyüş yolu ve kot farkı modele işlendi. Organizatörün düzeltmesiyle yemek sırası önceki yerinin karşısındaki, sahnenin solundaki duvara taşındı; tezgâhlar çim alana dönüktür. Kamera, alan işaretleri ve seçme geometrisi yeni konumu izler.
 - Sayfanın sağ altındaki RadioTEDU Technologies imzası [resmî teknoloji sayfasına](https://radiotedu.com/technology) bağlanır. Şeffaf PNG, aynı sayfanın `/technology/assets/radiotedu-logo-white.png` varlığıdır. Festival wordmark'ının mevcut çizimi korunarak renkleri kurumsal palete uyarlandı.
 
-- `campus3d.js`, `campus3d-ui.js`, `campus3d.css`: döndürülebilen kampüs modeli; A–B–K çim alanı, Ziya Gökalp Caddesi ve karşıdaki Aksu blokları. Yeme içme stantları sahnenin iki yanına değil, çim alanın uzun kenarındaki duvar boyunca yerleştirilmiştir. Alan seçimi, yakınlaştırma, dört kamera açısı, hareketi duraklatma ve WebGL bulunmadığında görsel yedek desteklenir.
+- `campus3d.js`, `campus3d-ui.js`, `campus3d.css`: döndürülebilen kampüs modeli; A–B–K çim alanı, Ziya Gökalp Caddesi ve karşıdaki Aksu blokları. Yeme içme stantları sahnenin iki yanına değil, çim alanın uzun kenarındaki duvar boyunca yerleştirilmiştir. Alan seçimi, yakınlaştırma, iki kampüse ayrı odaklanma, üstten görünüm, hareketi duraklatma ve WebGL bulunmadığında erişilebilir alan açıklamaları desteklenir.
 - `vendor/`: yerel Three.js modülleri ve MIT lisansı.
 - `assets/campus-festival.png`: resmî kroki referans alınarak built-in Imagegen ile üretilen festival illüstrasyonu. Web sürümü `assets/campus-festival.webp`; kaynak çözünürlüğü korunarak sıkıştırılmıştır. Görsel teknik bir yer-yön planı değildir; sitede resmî krokiye ayrı bağlantı vardır.
 - Üretim istemleri: `assets/campus-illustration-prompt.txt` ve `assets/campus-illustration-correction.txt`.
@@ -45,7 +45,7 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 
 ## Konser arşivi — 13 Ekim 2026
 
-`concerts.js` tekil tarih/sanatçı kayıtlarını ve her kaydın kaynak URL’sini tutar. Arşivde 2013–2026 arasında 26 kayıt, 7 özgün afiş ve 4 fotoğraflı sanatçı kartı vardır. TEDU Voice All Star `kind: 'event'` olarak ayrıca gösterilir; konser sayılmaz. Yalın, Pamela ve Yüzyüzeyken Konuşuruz öne çıkarılır. Diğer performanslar duraklatılabilen kayan şeritte, bütün kayıtlar kapalı başlayan yıl arşivinde yer alır. Hareket azaltma tercihi desteklenir. Yıl filtresi ve dinamik görsel büyütme `festival.js`, görünüm `concerts.css` içindedir.
+`concerts.js` tekil tarih/sanatçı kayıtlarını ve her kaydın kaynak URL’sini tutar. Arşivde 2013–2026 arasında 26 kayıt, 7 özgün afiş ve 4 fotoğraflı sanatçı kartı vardır. TEDU Voice All Star `kind: 'event'` olarak ayrıca gösterilir; konser sayılmaz. Sanatçı kartları etkinlik tarihine göre en yeniden en eskiye sıralanır; aynı günün saatli kayıtları da sondan başa gösterilir. Yıl filtreleri ve tam arşiv aynı tarih sırasını izler. Kartlar masaüstünde en çok 960 px, mobilde 300 px genişliğindeki ızgarada daha küçük gösterilir. Diğer performanslar duraklatılabilen kayan şeritte, bütün kayıtlar kapalı başlayan yıl arşivinde yer alır. Hareket azaltma tercihi desteklenir. Yıl filtresi ve dinamik görsel büyütme `festival.js`, görünüm `concerts.css` içindedir.
 
 - Kullanıcının sağladığı mor ve ötesi (26 Eylül 2018), Can Bonomo (26 Mayıs 2022), Selin Geçit ve Motive (21 Mayıs 2026) afişleri WebP olarak eklendi. Mevcut DKTT, Arem & Arman ve İkilem afişleri tekrar eklenmedi. Afişler kırpılmadan gösterilir.
 - Erken kayıt: TED Ankara Koleji Mezunları Derneği, [114. sayı, Yalın / 5 Ekim 2013](https://www.kolej.org/wp-content/uploads/114.say%C4%B1.pdf).
@@ -65,5 +65,13 @@ Fotoğraf, afiş ve videolar ilgili hak sahiplerine aittir. Sahne SVG’si ve TE
 
 ## Kontroller
 
-`node --check app.js`, `node --check stage2d.js`, `node --check festival.js`.
+### Tek 3D kampüs haritası — 17 Ekim 2026
+
+- `#alan` tek harita girişidir. Açılış ve sıfırlama iki kampüsü birlikte gösterir; İncesu ve Aksu düğmeleri aynı model içinde ilgili avluya odaklanır. Üstten görünüm iki kampüsü kapsar.
+- Aksu avlusunda Topluluklar, Gurmefest ve Tasarım Pazarı ayrı 3D geometriler, seçilebilir etiketler ve açıklama kartlarıyla gösterilir. Yeni yerleşimler öneridir; kesin konumlar organizasyonla netleştirilir. İncesu'daki mevcut duvar boyu yemek alanı korunur.
+- Ayrı 2D kampüs illüstrasyonu sayfadan kaldırıldı. 2D sahne çizimi ve sahne sponsorluk etkileşimleri korunur. Menüde tek “3D kampüs haritası” bağlantısı vardır.
+- `#kampus` ve `#aksu-etkinlikleri` eski bağlantıları 3D haritaya gider. `#incesu`, `#aksu`, `#gurmefest` ve `#tasarim-pazari` bağlantıları ilgili görünümü veya alanı açar.
+- WebGL kullanılamadığında ikinci bir harita yerine erişilebilir alan düğmeleri ve resmî kampüs krokisi bağlantısı gösterilir.
+
+`node --check app.js`, `node --check stage2d.js`, `node --check festival.js`, `node --check campus3d.js`, `node --check campus3d-ui.js`.
 Masaüstü ve mobilde gün seçimi, sahne yüzeyleri, büyütme penceresi, video duraklatma ve e-posta bağlantıları tarayıcıdan kontrol edilir.
