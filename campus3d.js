@@ -5,7 +5,7 @@ import { mergeGeometries } from './vendor/BufferGeometryUtils.js';
 // All festival geometry, textures and interaction run locally. No remote model service.
 const ready = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once:true })) : Promise.resolve();
 await ready;
-await import('./campus3d-ui.js?v=20261013c');
+await import('./campus3d-ui.js?v=20261017a');
 const shell=document.querySelector('#festival-world');
 const host=document.querySelector('#world-canvas');
 const loading=document.querySelector('#world-loading');
@@ -50,7 +50,7 @@ function initFestival(){
  function mat(color,metalness=0,roughness=.65){const key=[color,metalness,roughness].join();if(!materials.has(key))materials.set(key,new THREE.MeshStandardMaterial({color,metalness,roughness}));return materials.get(key);}
  const m={white:mat('#fffaf5'),metal:mat('#737d8a',.76,.33),dark:mat('#292737',.45,.45),black:mat('#191a24',.15,.8),purple:mat('#00237e',.18,.35),pink:mat('#d42e12'),orange:mat('#d42e12'),yellow:mat('#f7d417'),teal:mat('#00a49c'),grass:mat('#b7cc99'),wood:mat('#c9946b'),silver:mat('#d5d7e2',.7,.3)};
  const groups={};
- for(const key of ['environment','stage','screen','stand','food','flags','experience','entrance','societies']){groups[key]=new THREE.Group();groups[key].userData.zone=key==='environment'?null:key;scene.add(groups[key]);}
+ for(const key of ['environment','stage','screen','stand','food','flags','experience','entrance','societies','gurmefest','design']){groups[key]=new THREE.Group();groups[key].userData.zone=key==='environment'?null:key;scene.add(groups[key]);}
  const animations=new THREE.Group();scene.add(animations);
  const lights=[];const flags=[];const glows=[];
  const V=(x,y,z)=>new THREE.Vector3(x,y,z);
@@ -128,14 +128,14 @@ function initFestival(){
   sign('MERHABA!',x,2.12,z-1.195,1.35,.55,parent,color,'#ffffff');
   for(let i=0;i<4;i++)cyl(.08,.08,.24,x-.65+i*.43,1.65,z+.9,i%2?m.orange:m.purple,parent,10);
  }
- function foodTent(x,z,color,label){const p=groups.food;box(4.3,.17,3.5,x,.35,z,m.white,p);for(const dx of [-1.95,1.95])for(const dz of [-1.45,1.45])beam(V(x+dx,.4,z+dz),V(x+dx,3.1,z+dz),.06,m.white,p);const roof=mesh(new THREE.ConeGeometry(3.15,1.3,4),mat(color),x,3.7,z,p);roof.rotation.y=Math.PI/4;roof.scale.z=.82;box(4.3,.52,3.6,x,3.04,z,mat(color),p);box(3.8,1.1,.8,x,1,z+1.05,m.wood,p);box(4,.12,1,x,1.6,z+1.05,m.white,p);sign(label,x,3.04,z+1.815,3.7,.41,p,color,'#fffdf5');for(let i=0;i<4;i++)cyl(.1,.1,.3,x-.75+i*.5,1.81,z+1.02,m.white,p);}
- function table(x,z){cyl(.75,.75,.1,x,1.2,z,m.wood,groups.food,24);cyl(.07,.07,1,x,.67,z,m.white,groups.food);for(const [dx,dz]of[[0,-1.1],[0,1.1],[-1.1,0],[1.1,0]]){cyl(.26,.26,.1,x+dx,.68,z+dz,m.white,groups.food);beam(V(x+dx,.25,z+dz),V(x+dx,.65,z+dz),.06,m.wood,groups.food);}}
+ function foodTent(x,z,color,label,p=groups.food){box(4.3,.17,3.5,x,.35,z,m.white,p);for(const dx of [-1.95,1.95])for(const dz of [-1.45,1.45])beam(V(x+dx,.4,z+dz),V(x+dx,3.1,z+dz),.06,m.white,p);const roof=mesh(new THREE.ConeGeometry(3.15,1.3,4),mat(color),x,3.7,z,p);roof.rotation.y=Math.PI/4;roof.scale.z=.82;box(4.3,.52,3.6,x,3.04,z,mat(color),p);box(3.8,1.1,.8,x,1,z+1.05,m.wood,p);box(4,.12,1,x,1.6,z+1.05,m.white,p);sign(label,x,3.04,z+1.815,3.7,.41,p,color,'#fffdf5');for(let i=0;i<4;i++)cyl(.1,.1,.3,x-.75+i*.5,1.81,z+1.02,m.white,p);}
+ function table(x,z,parent=groups.food){cyl(.75,.75,.1,x,1.2,z,m.wood,parent,24);cyl(.07,.07,1,x,.67,z,m.white,parent);for(const [dx,dz]of[[0,-1.1],[0,1.1],[-1.1,0],[1.1,0]]){cyl(.26,.26,.1,x+dx,.68,z+dz,m.white,parent);beam(V(x+dx,.25,z+dz),V(x+dx,.65,z+dz),.06,m.wood,parent);}}
  const flagTexture=canvasTexture(256,512,(c,w,h)=>{const g=c.createLinearGradient(0,0,w,h);g.addColorStop(0,'#d42e12');g.addColorStop(.5,'#00237e');g.addColorStop(1,'#007ecb');c.fillStyle=g;c.fillRect(0,0,w,h);c.fillStyle='#fff';c.textAlign='center';c.save();c.translate(135,255);c.rotate(-Math.PI/2);c.font='900 56px Arial';c.fillText('TEDÜ FEST',0,0);c.restore();c.beginPath();c.moveTo(100,70);c.lineTo(115,95);c.lineTo(150,107);c.lineTo(120,122);c.lineTo(105,152);c.lineTo(90,120);c.lineTo(58,110);c.lineTo(87,96);c.closePath();c.fill();}).texture;
  function flag(x,z,phase){const parent=groups.flags;box(.65,.12,.65,x,.28,z,m.silver,parent);beam(V(x,.35,z),V(x,6.5,z),.055,m.silver,parent);mesh(new THREE.SphereGeometry(.09,8,6),m.white,x,6.6,z,parent);const geometry=new THREE.PlaneGeometry(1.25,3.65,12,18);geometry.translate(.625,0,0);const cloth=new THREE.Mesh(geometry,new THREE.MeshStandardMaterial({map:flagTexture,side:THREE.DoubleSide,roughness:.7}));cloth.position.set(x,4.51,z);cloth.userData.zone='flags';cloth.userData.phase=phase;cloth.userData.original=geometry.attributes.position.array.slice();animations.add(cloth);flags.push(cloth);}
  function tree(x,z,scale=1){const p=groups.environment;cyl(.75,.8,.7,x,.5,z,mat('#e4d8dc'),p);cyl(.16,.22,2.1*scale,x,1.5*scale,z,m.wood,p);mesh(new THREE.IcosahedronGeometry(1.35*scale,1),mat('#87ad81'),x,3.15*scale,z,p);mesh(new THREE.IcosahedronGeometry(.95*scale,1),mat('#abc599'),x+.65*scale,3.0*scale,z+.35,p);}
 
  // İncesu courtyard: A to the west, B along the south, K at the stage end.
- // A separate scene across Ziya Gökalp represents the Aksu courtyard.
+ // The same scene includes the Aksu courtyard across Ziya Gökalp.
  const stone=mat('#e4e0d5'),facade=mat('#f3f2eb'),glass=mat('#86adb6',.3,.24),edge=mat('#b4bfc1');
  box(67,1.15,52,-1,-.52,0,mat('#d1d6cc'));
  box(65,.15,50,-1,.09,0,stone);
@@ -206,10 +206,14 @@ function initFestival(){
  building('C BLOK',-60,9,8,15,6);building('G BLOK',-69,-20,33,7,9);
  building('H BLOK',-50,-10,7,19,9);building('E BLOK',-50,19,8,16,7);
  for(let i=0;i<4;i++){box(15,.2*(i+1),.8,-72,.2+i*.1,7+i*.8,stone);}
- booth(-76,-6,'#6b9d8b','TOPLULUKLAR','societies');booth(-70,-6,'#bc889d','ATÖLYELER','societies');booth(-64,-6,'#dbab58','BİRLİKTE','societies');
+ // Three distinct rows leave circulation paths between the Aksu festival areas.
+ booth(-77,-12,'#00a49c','TOPLULUKLAR','societies');booth(-70,-12,'#00a49c','ATÖLYELER','societies');
+ foodTent(-77,-4,'#d42e12','GURMEFEST',groups.gurmefest);foodTent(-70,-4,'#f7d417','GURMEFEST',groups.gurmefest);
+ booth(-77,4,'#00237e','TASARIM PAZARI','design');booth(-70,4,'#00237e','TASARIM PAZARI','design');
+ table(-76,13,groups.gurmefest);table(-70,13,groups.gurmefest);
  for(const [x,z] of [[-88,-22],[-88,22],[-59,-13],[-80,13]])tree(x,z,.8);
  // A modest crowd across the courtyard, with the main lawn kept uninterrupted.
- for(let i=0;i<17;i++){const x=-78+(i%6)*3.1,z=-.5+Math.floor(i/6)*2.8;cyl(.18,.22,.7,x,.68,z,[m.purple,m.orange,m.teal,m.yellow][i%4],groups.societies,8);mesh(new THREE.SphereGeometry(.14,8,6),mat('#cfa58a'),x,1.2,z,groups.societies);}
+ for(let i=0;i<12;i++){const x=-79+(i%6)*2.7,z=-8+Math.floor(i/6)*8;cyl(.18,.22,.7,x,.68,z,[m.purple,m.orange,m.teal,m.yellow][i%4],groups.societies,8);mesh(new THREE.SphereGeometry(.14,8,6),mat('#cfa58a'),x,1.2,z,groups.societies);}
  // The lawn has no food stall on either side of the stage.
 
  // Instanced people keep the crowd detailed without hundreds of draw calls.
@@ -226,35 +230,48 @@ function initFestival(){
  function optimize(group){group.updateMatrixWorld(true);const batches=new Map();const originals=[];group.traverse(o=>{if(!o.isMesh||Array.isArray(o.material))return;const key=o.material.uuid;const geometry=o.geometry.clone().applyMatrix4(o.matrixWorld);if(!batches.has(key))batches.set(key,{material:o.material,geometries:[]});batches.get(key).geometries.push(geometry);originals.push(o);});for(const o of originals){o.parent.remove(o);o.geometry.dispose();}for(const {material,geometries}of batches.values()){const geometry=mergeGeometries(geometries,false);if(geometry){const o=new THREE.Mesh(geometry,material);o.castShadow=true;o.receiveShadow=true;o.userData.zone=group.userData.zone;group.add(o);}geometries.forEach(g=>g.dispose());}}
  Object.values(groups).forEach(g=>{optimize(g);g.position.set(0,0,0);g.rotation.set(0,0,0);});
 
- const locations={stand:{target:[-13,2,-17],pin:[-13,5,-17],color:'#d42e12',label:'Marka stantları'},flags:{target:[-18,3,-11],pin:[-18,7,-11],color:'#00237e',label:'Bayraklar'},food:{target:[-8,2,13.5],pin:[-8,6,13.5],color:'#f7d417',label:'Duvar boyu lezzetler'},societies:{target:[-64,1,1],pin:[-64,5,1],color:'#00a49c',label:'Topluluklar · Aksu'}};
+ const locations={
+  stand:{target:[-13,2,-17],pin:[-13,5,-17],color:'#d42e12',label:'Marka stantları',camera:'incesu'},
+  flags:{target:[-18,3,-11],pin:[-18,7,-11],color:'#00237e',label:'Bayraklar',camera:'incesu'},
+  food:{target:[-8,2,13.5],pin:[-8,6,13.5],color:'#f7d417',label:'Duvar boyu lezzetler',camera:'food'},
+  societies:{target:[-74,1,-12],pin:[-74,5,-12],color:'#00a49c',label:'Topluluklar · Aksu',camera:'aksu'},
+  gurmefest:{target:[-74,1,-4],pin:[-74,5,-4],color:'#d42e12',label:'Gurmefest',camera:'aksu'},
+  design:{target:[-74,1,4],pin:[-74,5,4],color:'#00237e',label:'Tasarım Pazarı',camera:'aksu'}
+ };
  const pins=document.querySelector('#world-hotspots');
  for(const [key,loc]of Object.entries(locations)){const b=document.createElement('button');b.type='button';b.className='world-hotspot';b.hidden=true;b.setAttribute('aria-label',loc.label+' alanını seç');b.setAttribute('aria-pressed',String(key==='food'));b.dataset.zone=key;b.style.setProperty('--pin-color',loc.color);b.innerHTML='<i></i><span>'+loc.label+'</span>';b.addEventListener('click',()=>pickZone(key));pins.appendChild(b);loc.element=b;loc.vector=V(...loc.pin);}
  const selection=new THREE.Mesh(new THREE.RingGeometry(1.25,1.36,64),new THREE.MeshBasicMaterial({color:'#f7d417',transparent:true,opacity:.65,side:THREE.DoubleSide,depthWrite:false}));selection.rotation.x=-Math.PI/2;selection.position.set(-8,.6,13.5);scene.add(selection);
  let active='food';
- function pickZone(key){active=key;const loc=locations[key];selection.position.set(loc.target[0],.6,loc.target[2]);document.dispatchEvent(new CustomEvent('festival-scene-pick',{detail:{key}}));}
- document.addEventListener('festival-zone-selected',e=>{const key=e.detail.key;if(locations[key]){active=key;selection.position.set(locations[key].target[0],.6,locations[key].target[2]);for(const [k,l]of Object.entries(locations))l.element.setAttribute('aria-pressed',String(k===key));}});
+ function pickZone(key,focus=true){active=key;const loc=locations[key];selection.position.set(loc.target[0],.6,loc.target[2]);document.dispatchEvent(new CustomEvent('festival-scene-pick',{detail:{key,focus}}));}
+ document.addEventListener('festival-zone-selected',e=>{const key=e.detail.key;if(locations[key]){active=key;selection.position.set(locations[key].target[0],.6,locations[key].target[2]);for(const [k,l]of Object.entries(locations))l.element.setAttribute('aria-pressed',String(k===key));if(e.detail.focus)setView(locations[key].camera);}});
  const raycaster=new THREE.Raycaster();const pointer=new THREE.Vector2();let pointerDown;
- const clickables=[groups.stand,groups.food,groups.flags,groups.societies,...flags];
+ const clickables=[groups.stand,groups.food,groups.flags,groups.societies,groups.gurmefest,groups.design,...flags];
  function rayAt(e){const rect=renderer.domElement.getBoundingClientRect();pointer.set((e.clientX-rect.left)/rect.width*2-1,-(e.clientY-rect.top)/rect.height*2+1);raycaster.setFromCamera(pointer,camera);return raycaster.intersectObjects(clickables,true).find(h=>h.object.userData.zone||h.object.parent?.userData.zone);}
  renderer.domElement.addEventListener('pointerdown',e=>{pointerDown={x:e.clientX,y:e.clientY};});
  renderer.domElement.addEventListener('pointerup',e=>{if(!pointerDown||Math.hypot(pointerDown.x-e.clientX,pointerDown.y-e.clientY)>7)return;const hit=rayAt(e);if(hit)pickZone(hit.object.userData.zone||hit.object.parent.userData.zone);pointerDown=null;});
  let lastHover=0;renderer.domElement.addEventListener('pointermove',e=>{if(e.buttons||performance.now()-lastHover<70)return;lastHover=performance.now();host.style.cursor=rayAt(e)?'pointer':'grab';});
 
- const views={overview:{position:[-34,67,-70],target:[0,0,0]},stage:{position:[-30,23,-26],target:[12,4,0]},aerial:{position:[0,91,-.1],target:[0,0,0]},campus:{position:[-90,100,-100],target:[-30,0,0]},food:{position:[-16,35,-28],target:[-7,1,12]}};
+ const views={incesu:{position:[-34,67,-70],target:[0,0,0]},aksu:{position:[-103,65,-59],target:[-70,0,0]},aerial:{position:[-30,155,-.1],target:[-30,0,0]},campus:{position:[-90,100,-100],target:[-30,0,0]},food:{position:[-16,35,-28],target:[-7,1,12]}};
  let transition=null,paused=reducedMotion.matches,visible=false,lastTime=0,lastLED=0;
  function responsivePosition(p){return V(...p).multiplyScalar(Math.max(1,1.25/(host.clientWidth/host.clientHeight)));}
  function setView(name,immediate=false){const view=views[name];if(!view)return;const target=V(...view.target);const offset=V(...view.position).sub(target);const destination=responsivePosition(offset.toArray()).add(target);if(immediate||reducedMotion.matches){camera.position.copy(destination);controls.target.copy(target);controls.update();transition=null;}else transition={from:camera.position.clone(),to:destination,startTarget:controls.target.clone(),target,start:performance.now()};document.querySelectorAll('[data-camera]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.camera===name)));}
  controls.addEventListener('start',()=>{transition=null;document.querySelectorAll('[data-camera]').forEach(b=>b.setAttribute('aria-pressed','false'));});
- document.querySelectorAll('[data-camera]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.camera)));
- document.querySelector('#world-reset').addEventListener('click',()=>setView('overview'));
+ function focusCampus(name){
+  setView(name);
+  if(name==='aksu'&&locations[active].camera!=='aksu')pickZone('societies',false);
+  else if((name==='incesu'||name==='food')&&locations[active].camera==='aksu')pickZone('food',false);
+ }
+ document.querySelectorAll('[data-camera]').forEach(b=>b.addEventListener('click',()=>focusCampus(b.dataset.camera)));
+ document.addEventListener('festival-camera-requested',e=>focusCampus(e.detail.name));
+ document.querySelector('#world-reset').addEventListener('click',()=>setView('campus'));
  function zoom(factor){transition=null;const offset=camera.position.clone().sub(controls.target);const length=THREE.MathUtils.clamp(offset.length()*factor,controls.minDistance,controls.maxDistance);camera.position.copy(controls.target).add(offset.setLength(length));controls.update();}
  document.querySelector('#world-zoom-in').addEventListener('click',()=>zoom(.83));document.querySelector('#world-zoom-out').addEventListener('click',()=>zoom(1.2));
  function motionUI(){const b=document.querySelector('#world-motion');b.setAttribute('aria-pressed',String(paused));b.setAttribute('aria-label',paused?'Sahne hareketini başlat':'Sahne hareketini duraklat');b.textContent=paused?'▷':'Ⅱ';}
  document.querySelector('#world-motion').addEventListener('click',()=>{paused=!paused;motionUI()});motionUI();
  reducedMotion.addEventListener('change',e=>{paused=e.matches;motionUI()});
- renderer.domElement.addEventListener('keydown',e=>{if(e.key==='+'||e.key==='='){zoom(.9);e.preventDefault()}else if(e.key==='-'){zoom(1.1);e.preventDefault()}else if(e.key==='Home'){setView('overview');e.preventDefault()}else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();transition=null;const offset=camera.position.clone().sub(controls.target);const spherical=new THREE.Spherical().setFromVector3(offset);if(e.key==='ArrowLeft')spherical.theta-=.14;if(e.key==='ArrowRight')spherical.theta+=.14;if(e.key==='ArrowUp')spherical.phi-=.1;if(e.key==='ArrowDown')spherical.phi+=.1;spherical.phi=THREE.MathUtils.clamp(spherical.phi,controls.minPolarAngle,controls.maxPolarAngle);camera.position.copy(controls.target).add(offset.setFromSpherical(spherical));controls.update();}});
+ renderer.domElement.addEventListener('keydown',e=>{if(e.key==='+'||e.key==='='){zoom(.9);e.preventDefault()}else if(e.key==='-'){zoom(1.1);e.preventDefault()}else if(e.key==='Home'){setView('campus');e.preventDefault()}else if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){e.preventDefault();transition=null;const offset=camera.position.clone().sub(controls.target);const spherical=new THREE.Spherical().setFromVector3(offset);if(e.key==='ArrowLeft')spherical.theta-=.14;if(e.key==='ArrowRight')spherical.theta+=.14;if(e.key==='ArrowUp')spherical.phi-=.1;if(e.key==='ArrowDown')spherical.phi+=.1;spherical.phi=THREE.MathUtils.clamp(spherical.phi,controls.minPolarAngle,controls.maxPolarAngle);camera.position.copy(controls.target).add(offset.setFromSpherical(spherical));controls.update();}});
  function resize(){const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);const preset=document.querySelector('[data-camera][aria-pressed="true"]');if(preset)setView(preset.dataset.camera,true);}
- const resizer=new ResizeObserver(resize);resizer.observe(host);resize();setView('overview',true);
+ const resizer=new ResizeObserver(resize);resizer.observe(host);resize();setView('campus',true);
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;},{rootMargin:'180px'}).observe(host);
  renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();visible=false;document.querySelector('#world-fallback').hidden=false;shell.classList.add('world-error')});
  renderer.domElement.addEventListener('webglcontextrestored',()=>location.reload());
@@ -264,10 +281,10 @@ function initFestival(){
   if(transition){const p=THREE.MathUtils.clamp((time-transition.start)/1000,0,1);const ease=1-Math.pow(1-p,3);camera.position.lerpVectors(transition.from,transition.to,ease);controls.target.lerpVectors(transition.startTarget,transition.target,ease);if(p===1)transition=null;}
   controls.update();
   if(!paused){animTime+=dt;for(const flag of flags){const attr=flag.geometry.attributes.position;const original=flag.userData.original;for(let i=0;i<attr.count;i++){const x=original[i*3];attr.setZ(i,Math.sin(x*3.5+animTime*2.4+original[i*3+1]*1.2+flag.userData.phase)*.14*x);}attr.needsUpdate=true;}glows.forEach((o,i)=>{o.rotation.z=Math.sin(animTime*.4+i)*.12;});selection.material.opacity=.5+Math.sin(animTime*2)*.15;if(time-lastLED>90){drawLED(animTime);lastLED=time;}}
-  for(const [key,loc]of Object.entries(locations)){projected.copy(loc.vector).project(camera);const x=(projected.x*.5+.5)*host.clientWidth,y=(-projected.y*.5+.5)*host.clientHeight;const compact=host.clientWidth<500;const show=projected.z<1&&x>0&&x<host.clientWidth&&y>5&&y<host.clientHeight-50&&(!compact||key===active||['stand','food'].includes(key));loc.element.hidden=!show;const px=THREE.MathUtils.clamp(x,loc.element.offsetWidth/2+8,host.clientWidth-loc.element.offsetWidth/2-8);loc.element.style.transform=`translate(-50%,-50%) translate(${px.toFixed(1)}px,${y.toFixed(1)}px)`;loc.element.setAttribute('aria-pressed',String(key===active));}
+  for(const [key,loc]of Object.entries(locations)){projected.copy(loc.vector).project(camera);const x=(projected.x*.5+.5)*host.clientWidth,y=(-projected.y*.5+.5)*host.clientHeight;const compact=host.clientWidth<500;const show=projected.z<1&&x>0&&x<host.clientWidth&&y>5&&y<host.clientHeight-50&&(!compact||key===active||(controls.target.x<-45?loc.camera==='aksu':controls.target.x<-20?['food','gurmefest','design'].includes(key):['stand','food'].includes(key)));loc.element.hidden=!show;const px=THREE.MathUtils.clamp(x,loc.element.offsetWidth/2+8,host.clientWidth-loc.element.offsetWidth/2-8);loc.element.style.transform=`translate(-50%,-50%) translate(${px.toFixed(1)}px,${y.toFixed(1)}px)`;loc.element.setAttribute('aria-pressed',String(key===active));}
   renderer.render(scene,camera);
  }
- loading.hidden=true;shell.dataset.ready='true';requestAnimationFrame(frame);
+ loading.hidden=true;shell.dataset.ready='true';document.dispatchEvent(new CustomEvent('festival-scene-ready'));requestAnimationFrame(frame);
  // Always render a first frame even when the festival section starts below the fold.
  renderer.render(scene,camera);
 }
