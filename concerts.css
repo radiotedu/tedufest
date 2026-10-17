@@ -4,7 +4,7 @@
 .archive-years button:hover{background:#00237e0b}
 .archive-years button[aria-pressed=true]{background:#00237e;border-color:#00237e;color:white}
 .archive-count{font-size:12px;color:#47516b;margin:15px 0 0}
-.archive .poster-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;align-items:start;max-width:none}
+.archive .poster-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;align-items:start;max-width:960px;margin-inline:auto}
 .archive .poster-card:nth-child(n){transform:none;min-width:0}
 .archive .poster-image{background:#fff;border:1px solid #00237e14;box-shadow:0 8px 22px #00237e0d;aspect-ratio:3/4;display:grid;place-items:center}
 .archive .poster-image img{height:100%;width:100%;aspect-ratio:auto;object-fit:contain;position:absolute;inset:0}
@@ -59,4 +59,4 @@
 .concert-year h5{font:700 27px var(--display);margin:0;color:#00237e;line-height:1.12}
 .concert-year p{font-size:12px;color:#525a6c;margin:7px 0 0}
 @media(max-width:900px){.archive .poster-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.concert-year{grid-template-columns:65px 1fr;gap:20px}.concert-year li{grid-template-columns:1fr 65px;gap:7px 16px}.concert-year time{grid-column:1/-1}.concert-year h4{font-size:33px}}
-@media(max-width:520px){.archive .poster-grid{grid-template-columns:1fr;max-width:380px;gap:26px}.archive .poster-meta h3{font-size:33px}.archive-years{gap:6px}.archive-years button{padding:9px 13px}.concert-history{margin-top:36px}.concert-year{grid-template-columns:1fr;gap:10px}.concert-year h5{font-size:25px}.concert-year li{padding:16px 0}}
+@media(max-width:520px){.archive .poster-grid{grid-template-columns:1fr;max-width:300px;gap:26px}.archive .poster-meta h3{font-size:33px}.archive-years{gap:6px}.archive-years button{padding:9px 13px}.concert-history{margin-top:36px}.concert-year{grid-template-columns:1fr;gap:10px}.concert-year h5{font-size:25px}.concert-year li{padding:16px 0}}

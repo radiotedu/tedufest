@@ -1,5 +1,5 @@
 (() => {
-  const concerts = window.TEDUFEST_CONCERTS;
+  const concerts = [...window.TEDUFEST_CONCERTS].sort((a,b) => b.date.localeCompare(a.date) || (b.time || '').localeCompare(a.time || ''));
   const years = [...new Set(concerts.map(concert => concert.date.slice(0, 4)))];
   const formatDate = value => new Intl.DateTimeFormat('tr-TR', {day:'numeric', month:'long', year:'numeric', timeZone:'UTC'}).format(new Date(`${value}T12:00:00Z`));
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -13,7 +13,7 @@
   document.querySelector('#program').insertAdjacentHTML('afterend', `<section class="archive section" id="arsiv"><div class="wrap"><div class="section-heading"><div><span class="section-label">Afişler, sahneler, unutulmayan geceler.</span><h2>Birlikte söyledik.<br>Birlikte hatırlıyoruz.</h2></div><p>Yalın’dan Pamela’ya, mor ve ötesi’nden<br>Yüzyüzeyken Konuşuruz’a. Aynı heyecan, yıllar boyu.</p></div><div class="archive-controls"><div class="archive-years" role="group" aria-label="Arşiv yılını seç"><button type="button" data-year="all" aria-pressed="true" aria-controls="archive-results">Tüm yıllar</button>${years.map(year => `<button type="button" data-year="${year}" aria-pressed="false" aria-controls="archive-results">${year}</button>`).join('')}</div><p class="archive-count" role="status" aria-live="polite"></p></div><div id="archive-results"></div></div></section>`);
   const renderArchive = year => {
     const selected = concerts.filter(concert => year === 'all' || concert.date.startsWith(year));
-    const featured = selected.filter(p => p.image && p.kind !== 'event').sort((a,b) => (a.featuredOrder || 99) - (b.featuredOrder || 99));
+    const featured = selected.filter(p => p.image && p.kind !== 'event');
     const performances = selected.filter(p => !p.image && p.kind !== 'event');
     const events = selected.filter(p => p.kind === 'event');
     const strip = performances.map(p => `<span class="performance-name"><b>${p.name}</b><span>${formatDate(p.date)}</span><i aria-hidden="true">✳</i></span>`).join('');
