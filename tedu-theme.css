@@ -1,14 +1,64 @@
 /* TEDÜ identity guide §2.1–2.2: official RGB values. */
-:root{--tedu-blue:#00237e;--tedu-red:#d42e12;--tedu-yellow:#f7d417;--tedu-teal:#00a49c;--tedu-mist:#eaf3f9;--purple:var(--tedu-blue);--orange:var(--tedu-red);--yellow:var(--tedu-yellow)}
+:root{
+ --tedu-blue:#00237e;--tedu-red:#d42e12;--tedu-yellow:#f7d417;--tedu-teal:#00a49c;
+ --tedu-navy:#001951;--tedu-red-hover:#b72610;--tedu-mist:#eff4fa;
+ --purple:var(--tedu-blue);--orange:var(--tedu-red);--yellow:var(--tedu-yellow);
+ --paper:#fff;--line:#dbe5f0;--ink:#122447;
+}
+.header{color:var(--tedu-blue);background:var(--paper);border-top:4px solid var(--tedu-red)}
+.header nav a:hover{text-decoration:underline;text-underline-offset:5px}
 .header>.button,.stage-selection-action .button,.world-detail .button{background:var(--tedu-blue);border-color:var(--tedu-blue)}
-.header>.button:hover,.stage-selection-action .button:hover,.world-detail .button:hover{background:#001951}
-.button:hover{background:#b72610}
-.hero-bottom .button{background:var(--tedu-yellow);border-color:var(--tedu-yellow);color:var(--tedu-blue)}
-.hero-bottom .button:hover{background:#ffe559}
-.festival-hero h1 em{color:var(--tedu-yellow)}
-.live-dot{background:var(--tedu-yellow);box-shadow:0 0 20px #f7d41780}
-.ribbon{background:var(--tedu-yellow);color:var(--tedu-blue)}
-.program{background:#eff4fa}
+.button:not(.outline):hover{background:var(--tedu-red-hover);border-color:var(--tedu-red-hover)}
+.header>.button:hover,.stage-selection-action .button:hover,.world-detail .button:hover{background:var(--tedu-navy);border-color:var(--tedu-navy)}
+.button:focus-visible,button:focus-visible,a:focus-visible{outline-color:var(--tedu-blue)}
+.festival-hero{background:var(--tedu-navy)}
+.hero-shade{
+ background:linear-gradient(90deg,#001951 3%,#001951f2 26%,#00237e70 65%,#00237e20),linear-gradient(0deg,#00143aec,transparent 45%);
+}
+.hero-eyebrow{color:#edf3ff}
+.live-dot{width:20px;height:3px;border-radius:0;background:var(--tedu-yellow);box-shadow:none}
+.hero-mark{filter:drop-shadow(0 8px 22px #00143a88)}
+.festival-hero h1 em{color:#fff}
+.hero-bottom p{color:#edf3ff}
+.hero-bottom .button{background:var(--tedu-red);border-color:var(--tedu-red);color:white}
+.film-controls button{background:#001951b0}
+.festival-hero a:focus-visible,.festival-hero button:focus-visible{outline-color:var(--tedu-yellow)}
+@media(min-width:761px){.festival-hero{height:calc(100svh - 198px)}}
+
+/* Quick routes to existing content, directly below the opening film. */
+.festival-guide{background:var(--tedu-blue);color:white;border-bottom:4px solid var(--tedu-red)}
+.festival-guide ul{list-style:none;margin-block:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.festival-guide li+li{border-left:1px solid #ffffff38}
+.festival-guide a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(10px,1.5vw,24px);padding:20px clamp(12px,1.6vw,26px);min-height:94px;line-height:1.4}
+.festival-guide a:hover{background:var(--tedu-navy)}
+.festival-guide a:focus-visible{outline-color:var(--tedu-yellow);outline-offset:-4px}
+.festival-guide strong,.festival-guide small{display:block}
+.festival-guide strong{font-size:15px;font-weight:800}
+.festival-guide small{font-size:12px;margin-top:4px;color:#dbe5fa}
+.guide-index{color:var(--tedu-yellow);font-size:11px;font-weight:800;letter-spacing:.08em}
+.guide-arrow{font-size:18px}
+
+.archive,.contact-form{background:var(--tedu-mist)}
+.program-menu button,.contact-form,.contact-form input,.contact-form select,.contact-form textarea{border-color:var(--line)}
+.program-panel:after{background:linear-gradient(0deg,#00143afa,#00143ab0 36%,#00143a16 95%)}
+.program-text small{color:#e1eaff}
+.image-dialog{background:var(--paper);color:var(--tedu-navy);box-shadow:0 20px 100px #00143a55}
+.image-dialog::backdrop{background:#00143adb}
+.image-dialog form button,.poster-image>span{color:var(--tedu-blue)}
+.footer{color:var(--tedu-blue)}
+.footer>a:last-child{text-decoration:underline;text-underline-offset:4px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@media(max-width:760px){
+ html{scroll-padding-top:122px}
+ .header nav{justify-content:space-between;gap:12px}
+ .hero-shade{background:linear-gradient(0deg,#001951 5%,#001951e6 37%,#00237e35 100%)}
+ .festival-hero h1{font-size:clamp(38px,12vw,49px)}
+ .festival-guide ul{grid-template-columns:1fr}
+ .festival-guide li+li{border-left:0;border-top:1px solid #ffffff38}
+ .festival-guide a{padding:14px 6px;min-height:64px;gap:16px}
+}
+.program{background:var(--tedu-mist)}
 .program-menu button.active{background:var(--tedu-blue);border-color:var(--tedu-blue)}
 .campus{background:#eef5fa}
 .campus .section-label,.place-kicker,.map-topline,.campus-places h3{color:var(--tedu-blue)}
@@ -36,7 +86,6 @@
 .world-zones button[aria-pressed=true],.stage-zone-tabs button[aria-pressed=true]{background:#eaf0fc;border-color:#8196c3;color:var(--tedu-blue)}
 .stage-selection-copy>span,.stage-selection-copy li{color:var(--tedu-blue)}
 /* Carry the university palette through the remaining festival details. */
-:root{--ink:#122447}
 .main-sponsor{background:#edf2fc;border-color:#c9d5ec}
 .main-sponsor .button:hover{background:#001951}
 .facts strong,.stage-bar b,.stage-popover h3{color:var(--tedu-blue)}
