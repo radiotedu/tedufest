@@ -10,6 +10,8 @@ TED Üniversitesi festival ve sponsorluk sitesi.
 
 ## İçerik ve görseller
 
+- Kampüs silüeti (`assets/tedu-campus-official.svg`), [TED Üniversitesi'nin yayımladığı tanıtım kataloğunun](https://www.tedu.edu.tr/sites/default/files/content_files/TED_-Brosur_2025_2.pdf#page=13) 13. sayfasındaki özgün vektör çizimden alınmıştır. Web için koordinat hassasiyeti ve dosya boyutu optimize edilmiştir.
+
 Dört günlük bölüm geçmiş **20–23 Mayıs 2025** festivalini anlatır. Açılış filmi ayrı olarak **2026** festival arşividir. Yeni festival tarihi ilan edilmemektedir.
 
 - Açılış filmi: [TED Üniversitesi ve TEDU SCA, 26 Mayıs 2026](https://www.instagram.com/reel/DYzESdDN9Rk/). Sessiz, web için sıkıştırılmış ilk 55 saniye. Kaynak bağlantısı oynatıcının yanında bulunur.
